@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-alert :value="haveIBookedAlready" type="warning">
-      Sie haben für diesen Tag bereits einen Tisch gebucht. Pro tag kann nur ein Tisch gebucht werden.
+      Sie haben für diesen Tag bereits einen Tisch gebucht. Pro Tag kann nur ein Tisch gebucht werden.
     </v-alert>
 
     <v-row>
