@@ -3,7 +3,7 @@
     <v-row>
       <v-col cols="3">
         <v-card>
-          <v-card-text style="height: calc(100vh - 150px); overflow-y: auto">
+          <v-card-text style="height: calc(100vh - 150px); overflow-y: auto;">
             <select-building
               :buildingId="selectedBuildingId"
               @set="selectBuilding"
@@ -29,17 +29,17 @@
         </v-card>
       </v-col>
 
-      <v-col class="pt-4" cols="9">
-          <div style="height: calc(100vh - 160px); overflow-y: auto; position: relative" class="px-4">
-            <show-shareable-units
-              :date="selectedDate"
-              :roomId="selectedRoomId"
-              :timeFrom="selectedTimeSpanFrom"
-              :timeTill="selectedTimeSpanTill"
-              @book="bookSharableUnit"
-              v-if="selectedDate && selectedRoomId && selectedTimeSpanFrom && selectedTimeSpanTill"
-            />
-          </div>
+      <v-col cols="9">
+        <v-card class="px-4" style="height: calc(100vh - 150px); overflow-y: auto; position: relative">
+          <show-shareable-units
+            :date="selectedDate"
+            :roomId="selectedRoomId"
+            :timeFrom="selectedTimeSpanFrom"
+            :timeTill="selectedTimeSpanTill"
+            @book="bookSharableUnit"
+            v-if="selectedDate && selectedRoomId && selectedTimeSpanFrom && selectedTimeSpanTill"
+          />
+        </v-card>
       </v-col>
     </v-row>
   </v-container>
@@ -47,7 +47,6 @@
 
 <script>
   import { mapActions } from 'vuex'
-
   import ShowShareableUnits from './show-shareable-units'
   import SelectBuilding from './select-building'
   import SelectRoom from './select-room'

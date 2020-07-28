@@ -72,7 +72,11 @@ const SOCKET_CANCEL_SHAREABLE_UNIT_BOOKING__SUCCESS = (state, response) => {
     const idx = state.myBookings[date].findIndex(i => i._id === bookingId)
 
     if (idx !== -1) {
-      Vue.delete(state.myBookings[date], idx)
+      if (state.myBookings[date].length === 1) {
+        Vue.delete(state.myBookings, date)
+      } else {
+        Vue.delete(state.myBookings[date], idx)
+      }
     }
   }
 
@@ -80,7 +84,11 @@ const SOCKET_CANCEL_SHAREABLE_UNIT_BOOKING__SUCCESS = (state, response) => {
     const idx = state.items[roomId].findIndex(i => i._id === bookingId)
 
     if (idx !== -1) {
-      Vue.delete(state.items[roomId], idx)
+      if (state.items[roomId].length === 1) {
+        Vue.delete(state.items, roomId)
+      } else {
+        Vue.delete(state.items[roomId], idx)
+      }
     }
   }
 }
@@ -111,6 +119,7 @@ const getters = {
       : []
   },
   getMyBookingsByDate: state => date => state.myBookings[date] || [],
+  getMyBookings: state => state.myBookings,
 }
 
 export default {

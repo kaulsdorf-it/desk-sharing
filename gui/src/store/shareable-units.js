@@ -41,6 +41,7 @@ const mutations = {
 // getters
 const getters = {
   getAll: state => state.items,
+  getById: state => id => state.items.find(i => i._id === id),
   getByRoomId: state => roomId => state.items.filter(i => i.roomId === roomId).sort(sortByName),
 }
 

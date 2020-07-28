@@ -1,34 +1,14 @@
 <template>
-  <v-menu
-    :disabled="!roomId"
-    close-on-content-click
-    min-width="290px"
-    offset-y
-    ref="menu"
-    transition="scale-transition"
-    v-model="menu"
-  >
-    <template v-slot:activator="{ on, attrs }">
-      <v-text-field
-        :disabled="!roomId"
-        :value="formattedDate"
-        clearable
-        label="Datum"
-        prepend-icon="event"
-        readonly
-        v-bind="attrs"
-        v-on="on"
-      />
-    </template>
-
+  <div style="text-align: center">
     <v-date-picker
+      :allowed-dates="isDateAllowed"
       :first-day-of-week="1"
+      class="border_all"
       locale="de-de"
       no-title
-      scrollable
       v-model="value"
     />
-  </v-menu>
+  </div>
 </template>
 
 <script>
@@ -45,16 +25,23 @@
           this.$emit('set', value)
         }
       },
-      formattedDate() {
-        return this.value
-          ? this.$moment(this.value).format('DD.MM.Y')
-          : ''
+      today() {
+        return this.$moment().format('YYYY-MM-DD')
+      },
+      maxBookableDate() {
+        return this.$moment().add(60, 'days').format('YYYY-MM-DD')
       }
     },
 
     data: () => ({
       menu: false,
     }),
+
+    methods: {
+      isDateAllowed(date) {
+        return this.today <= date && this.maxBookableDate >= date
+      }
+    },
 
     props: {
       roomId: {

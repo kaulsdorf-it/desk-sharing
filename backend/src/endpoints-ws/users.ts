@@ -45,7 +45,6 @@ export const registerClientEndpoints = ( io, socket ): void => {
 
 		const bookings: ShareableUnitBooking[] = await shareableUnitBookingService.getByUserId(user._id)
 		socket.emit('get_my_shareable_unit_bookings__success', bookings)
-
 	}
 
 	const signIn = async ( { providerId, payload }: { providerId: string, payload: ICredentials } ): Promise<void> => {

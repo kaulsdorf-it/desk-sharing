@@ -1,7 +1,7 @@
 <template>
   <v-container fill-height fluid>
     <v-layout align-center justify-center>
-      <v-flex id="sign-in-form" xs3>
+      <v-flex id="sign-in-form" xs12 sm8 md6 lg4>
         <v-card class="elevation-15" v-if="!selectedAuthProvider">
           <v-toolbar class="primary" dark dense>
             <v-toolbar-title>Wie wollen Sie sich sich anmelden?</v-toolbar-title>
