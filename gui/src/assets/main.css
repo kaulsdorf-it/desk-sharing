@@ -1,0 +1,27 @@
+[float-right], .float-right {
+  float: right !important;
+}
+
+[align-right], .align-right {
+  text-align: right !important;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.highlight-text {
+  color: red;
+}
+
+.v-tooltip__content {
+  font-size: 16px;
+}
+
+.italic {
+  font-style: italic;
+}
+
+.v-dialog {
+  border-radius: 10px;
+}

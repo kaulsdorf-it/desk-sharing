@@ -1,0 +1,15 @@
+*/node_modules*
+
+# Log files
+*/npm-debug.log*
+*/yarn-debug.log*
+*/yarn-error.log*
+/node_modules
+# Editor directories and files
+*/.idea
+*.sln
+*.sw?
+
+/dist*
+.git
+*.tar

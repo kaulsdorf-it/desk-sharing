@@ -1,0 +1,9 @@
+{
+  "url": "ldaps://bku.db.de",
+  "baseDN": "DC=bku,DC=db,DC=de",
+  "userDN": "cn={0},OU=DB User Account,OU=Users,OU=Manage,OU=Desktop Services",
+  "secure": true,
+  "tlsOptions": {
+    "rejectUnauthorized": false
+  }
+}

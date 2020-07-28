@@ -1,0 +1,30 @@
+FROM node:12-alpine as builder
+
+RUN apk --update add python g++ make
+
+WORKDIR /app
+COPY gui/package.json gui/yarn.lock ./gui/
+RUN cd gui && yarn install --frozen-lockfile
+COPY backend/package.json backend/yarn.lock ./backend/
+RUN cd backend && yarn install --frozen-lockfile
+
+COPY gui ./gui
+COPY backend ./backend
+
+RUN cd gui && yarn build
+RUN cd backend && yarn build
+
+
+FROM node:12-alpine
+
+WORKDIR /app
+COPY backend/src/certs ./src/certs
+COPY backend/package.json backend/yarn.lock ./
+RUN yarn install --prod --frozen-lockfile
+
+COPY --from=builder /app/gui/dist ./dist/gui
+COPY --from=builder /app/backend/dist .
+
+CMD node index.js
+
+EXPOSE 3000

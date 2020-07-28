@@ -1,0 +1,6 @@
+export const sortStringValues = (a, b) => a.localeCompare(b)
+export const sortByName = (a, b) => a.name.localeCompare(b.name)
+export const sortByLabel = (a, b) => a.label.localeCompare(b.label)
+export const sortByText = (a, b) => a.text.localeCompare(b.text)
+export const sortByType = (a, b) => a.type.localeCompare(b.type)
+export const sortBySubject = (a, b) => a.subject.localeCompare(b.subject)

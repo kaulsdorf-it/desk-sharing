@@ -1,0 +1,41 @@
+// disable glow in chrome
+*:focus {
+  outline: none;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+pre {
+  font-family: Roboto, sans-serif;
+  font-size: 13px;
+}
+
+.add-item-button {
+  top: 6px !important;
+  margin-left: 20px !important;
+}
+
+.v-list {
+  padding: 0 !important;
+}
+
+.border-x {
+  border-left: 1px solid #ddd;
+  border-right: 1px solid #ddd;
+}
+
+.border-y {
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+}
+
+.dimmed {
+  opacity: 0.4;
+}
+
+.rounded {
+  border: 1px solid #ddd;
+  border-radius: 6px;
+}
