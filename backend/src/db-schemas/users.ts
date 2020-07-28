@@ -24,7 +24,7 @@ export class NewPasswordRequest {
 
 @index({ accountName: 1, authProviderId: 1 }, { unique: true })
 @index({ clientIds: 1 }, { sparse: true })
-@modelOptions({ schemaOptions: { collection: 'Users' } })
+@modelOptions({ schemaOptions: { collection: 'users' } })
 export class User {
 	@prop({ required: true })
 	createdAt!: Moment.Moment

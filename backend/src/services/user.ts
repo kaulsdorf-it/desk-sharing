@@ -65,7 +65,7 @@ export class UserService {
 	async add( user: User ) {
 		const numberOfUsers = await this.repository.countAll()
 		if ( numberOfUsers === 0 ) {
-			user.roles = [EnumUserRole.ADMIN, EnumUserRole.FORM_DESIGNER, EnumUserRole.FORM_STAGE_MANAGER]
+			user.roles = [EnumUserRole.ADMIN]
 			user.status = UserStatus.ACTIVE
 		}
 

@@ -17,7 +17,7 @@ export class ServerConfig {
 	authProviders!: AuthProvider[]
 
 	@prop({ required: false })
-	lastUpdated!: Moment.Moment
+	lastUpdated?: Moment.Moment
 }
 
 export const getServerConfigModel = () => getModelForClass(ServerConfig)
