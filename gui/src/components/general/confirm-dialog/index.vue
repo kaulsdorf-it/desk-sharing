@@ -49,13 +49,13 @@
         <v-toolbar color="indigo" dark dense>
           <v-toolbar-title>{{ title }}</v-toolbar-title>
           <v-spacer/>
-          <v-btn @click="disagree" icon>
+          <v-btn @click="disagree" icon small>
             <v-icon>close</v-icon>
           </v-btn>
         </v-toolbar>
 
         <v-card-text class="subheading" v-html="description" v-if="description"/>
-        <v-card-actions>
+        <v-card-actions class="grey lighten-3">
           <v-spacer/>
           <v-btn
             @click="disagree"

@@ -16,7 +16,7 @@ export class ShareableUnitBookingRepository {
 	}
 
 	async getByShareableUnitId( shareableUnitId: string ): Promise<any> {
-		return this.model.find({ shareableUnitId })
+		return this.model.find({ shareableUnitId }).lean()
 	}
 
 	async add( shareableUnit: ShareableUnitBooking ): Promise<ShareableUnitBooking> {
@@ -30,7 +30,7 @@ export class ShareableUnitBookingRepository {
 		return this.getById(shareableUnit._id)
 	}
 
-	async remove( _id: string ): Promise<void> {
-		this.model.remove({ _id })
+	remove( _id: string ) {
+		return this.model.remove({ _id })
 	}
 }

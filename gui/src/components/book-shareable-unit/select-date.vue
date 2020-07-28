@@ -9,18 +9,16 @@
     v-model="menu"
   >
     <template v-slot:activator="{ on, attrs }">
-      <ValidationProvider :rules="rules" v-slot="{ errors }">
-        <v-text-field
-          :disabled="!roomId"
-          :value="formattedDate"
-          clearable
-          label="Datum"
-          prepend-icon="event"
-          readonly
-          v-bind="attrs"
-          v-on="on"
-        />
-      </ValidationProvider>
+      <v-text-field
+        :disabled="!roomId"
+        :value="formattedDate"
+        clearable
+        label="Datum"
+        prepend-icon="event"
+        readonly
+        v-bind="attrs"
+        v-on="on"
+      />
     </template>
 
     <v-date-picker
@@ -56,9 +54,6 @@
 
     data: () => ({
       menu: false,
-      rules: {
-        required: true,
-      },
     }),
 
     props: {

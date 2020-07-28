@@ -1,58 +1,48 @@
 <template>
-  <ValidationObserver v-slot="{ invalid, valid, reset, pristine }">
-    <v-container fluid>
-      <v-row>
-        <v-col cols="3">
-          <v-card>
-            <v-card-text style="height: calc(100vh - 200px); overflow-y: auto">
-              <select-building
-                :buildingId="selectedBuildingId"
-                @set="selectBuilding"
-              />
-              <select-room
-                :buildingId="selectedBuildingId"
-                :roomId="selectedRoomId"
-                @set="selectRoom"
-              />
-              <select-date
-                :date="selectedDate"
-                :roomId="selectedRoomId"
-                @set="selectDate"
-              />
-              <select-time-span
-                :disabled="!selectedDate || !selectedRoomId"
-                :from="selectedTimeSpanFrom"
-                :till="selectedTimeSpanTill"
-                @setFrom="selectFrom"
-                @setTill="selectTill"
-              />
-            </v-card-text>
-            <v-card-actions class="grey lighten-3">
-              <btn-submit
-                :disabled="invalid || pristine"
-                @submit="submit(reset)"
-                full-width
-                label="Verfügbare Räume anzeigen"
-              />
-            </v-card-actions>
-          </v-card>
-        </v-col>
+  <v-container fluid>
+    <v-row>
+      <v-col cols="3">
+        <v-card>
+          <v-card-text style="height: calc(100vh - 150px); overflow-y: auto">
+            <select-building
+              :buildingId="selectedBuildingId"
+              @set="selectBuilding"
+            />
+            <select-room
+              :buildingId="selectedBuildingId"
+              :roomId="selectedRoomId"
+              @set="selectRoom"
+            />
+            <select-date
+              :date="selectedDate"
+              :roomId="selectedRoomId"
+              @set="selectDate"
+            />
+            <select-time-span
+              :disabled="!selectedDate || !selectedRoomId"
+              :from="selectedTimeSpanFrom"
+              :till="selectedTimeSpanTill"
+              @setFrom="selectFrom"
+              @setTill="selectTill"
+            />
+          </v-card-text>
+        </v-card>
+      </v-col>
 
-        <v-col class="pt-4" cols="9">
-          <span style="height: calc(100vh - 150px); overflow-y: auto; position: relative">
+      <v-col class="pt-4" cols="9">
+          <div style="height: calc(100vh - 160px); overflow-y: auto; position: relative" class="px-4">
             <show-shareable-units
               :date="selectedDate"
               :roomId="selectedRoomId"
-              @book="bookSharableUnit"
-              v-if="valid"
               :timeFrom="selectedTimeSpanFrom"
               :timeTill="selectedTimeSpanTill"
+              @book="bookSharableUnit"
+              v-if="selectedDate && selectedRoomId && selectedTimeSpanFrom && selectedTimeSpanTill"
             />
-          </span>
-        </v-col>
-      </v-row>
-    </v-container>
-  </ValidationObserver>
+          </div>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
@@ -87,12 +77,10 @@
         book: 'shareableUnitBookings/bookAction',
       }),
       selectBuilding(buildingId) {
-        this.selectedDate = null
         this.selectedRoomId = null
         this.selectedBuildingId = buildingId
       },
       selectRoom(roomId) {
-        this.selectedDate = null
         this.selectedRoomId = roomId
       },
       selectDate(date) {
@@ -119,5 +107,11 @@
         this.book(payload)
       }
     },
+
+    watch: {
+      selectedRoomId(roomId) {
+        this.getShareableUnitBookings(roomId)
+      }
+    }
   }
 </script>

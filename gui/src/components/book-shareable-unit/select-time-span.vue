@@ -1,28 +1,24 @@
 <template>
   <v-row>
     <v-col cols="6">
-      <ValidationProvider :rules="rules" v-slot="{ errors }">
-        <v-text-field
-          :disabled="disabled"
-          clearable
-          filled
-          label="von"
-          type="time"
-          v-model="fromValue"
-        />
-      </ValidationProvider>
+      <v-text-field
+        :disabled="disabled"
+        clearable
+        filled
+        label="von"
+        type="time"
+        v-model="fromValue"
+      />
     </v-col>
     <v-col cols="6">
-      <ValidationProvider :rules="rules" v-slot="{ errors }">
-        <v-text-field
-          :disabled="disabled"
-          clearable
-          filled
-          label="bis"
-          type="time"
-          v-model="tillValue"
-        />
-      </ValidationProvider>
+      <v-text-field
+        :disabled="disabled"
+        clearable
+        filled
+        label="bis"
+        type="time"
+        v-model="tillValue"
+      />
     </v-col>
   </v-row>
 </template>
@@ -48,12 +44,6 @@
         }
       },
     },
-
-    data: () => ({
-      rules: {
-        required: true,
-      },
-    }),
 
     props: {
       from: {

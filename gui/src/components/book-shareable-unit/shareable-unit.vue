@@ -1,6 +1,6 @@
 <template>
   <v-card>
-    <v-toolbar :color="headerColor" dark dense>
+    <v-toolbar :color="headerColor" dark dense flat>
       <v-toolbar-title>{{ unit.name }}</v-toolbar-title>
     </v-toolbar>
 
@@ -10,10 +10,18 @@
         v-for="booking of bookings"
         v-if="bookings.length > 0"
       >
-        <v-col cols="4">{{ booking.timeFrom }}-{{ booking.timeTill }} Uhr</v-col>
-        <v-col cols="8">
+        <v-col cols="3">{{ booking.timeFrom }}-{{ booking.timeTill }}</v-col>
+        <v-col cols="7">
           <div v-if="myself._id === booking.userId">Reserviert für mich</div>
           <div v-else>Reserviert<br/>#{{ booking.userId }}</div>
+        </v-col>
+        <v-col cols="2" style="position: relative; top: -8px; text-align: right">
+          <confirm-dialog
+            @agree="cancelBooking({bookingId: booking._id, date, roomId})"
+            icon="mdi-delete-forever-outline"
+            title="Diese Reservierung stornieren"
+            v-if="myself._id === booking.userId"
+          />
         </v-col>
       </v-row>
 
@@ -32,7 +40,7 @@
 </template>
 
 <script>
-  import { mapGetters } from 'vuex'
+  import { mapActions, mapGetters } from 'vuex'
 
   export default {
     computed: {
@@ -54,11 +62,14 @@
       headerColor() {
         return this.canNotBeBooked
           ? 'grey'
-          : 'indigo'
+          : 'success'
       }
     },
 
     methods: {
+      ...mapActions({
+        cancelBooking: 'shareableUnitBookings/cancelBookingAction'
+      }),
       submit() {
         this.$emit('book', this.unit._id)
       },
@@ -68,6 +79,14 @@
       unit: {
         type: Object,
         required: true,
+      },
+      roomId: {
+        type: String,
+        required: false,
+      },
+      date: {
+        type: String,
+        required: false,
       },
       bookings: {
         type: Array,

@@ -12,7 +12,9 @@
       >
         <shareable-unit
           :bookings="getBookings(unit)"
+          :date="date"
           :disableBooking="haveIBookedAlready"
+          :room-id="roomId"
           :timeFrom="timeFrom"
           :timeTill="timeTill"
           :unit="unit"

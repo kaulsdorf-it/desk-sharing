@@ -37,18 +37,19 @@ export const registerShareableUnitBookingsEndpoints = ( io, socket ): void => {
 		}
 	}
 
-	// const remove = async ( bookingId: string ): Promise<void> => {
-	// 	try {
-	// 		await shareableUnitBookingService.remove(bookingId)
-	// 		io.emit('remove_shareable_unit_booking__success', bookingId)
-	// 	} catch ( e ) {
-	// 		socket.emit('remove_shareable_unit_booking__failed', e)
-	// 	}
-	// }
+	const cancel = async ( { bookingId, date, roomId } ): Promise<void> => {
+		try {
+			await shareableUnitBookingService.remove(bookingId)
+			io.emit('cancel_shareable_unit_booking__success', { bookingId, date, roomId })
+		} catch ( e ) {
+			console.log('ERROR in cancel()', e)
+			socket.emit('remove_shareable_unit_booking__failed', e)
+		}
+	}
 
 	socket
 		.on('get-shareable-unit-bookings-by-room-id', getByRoomId)
 		.on('add-shareable-unit-booking', addBooking)
 		.on('update-shareable-unit-booking', update)
-	// .on('remove-shareable-unit-booking', remove)
+		.on('cancel-shareable-unit-booking', cancel)
 }

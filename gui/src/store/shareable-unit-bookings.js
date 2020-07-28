@@ -18,9 +18,14 @@ const bookAction = (context, { shareableUnitId, date, timeFrom, timeTill }) => {
   socket.send('add-shareable-unit-booking', { shareableUnitId, date, timeFrom, timeTill })
 }
 
+const cancelBookingAction = (context, { bookingId, date, roomId }) => {
+  socket.send('cancel-shareable-unit-booking', { bookingId, date, roomId })
+}
+
 const actions = {
   getShareableUnitBookingsAction,
   bookAction,
+  cancelBookingAction,
 }
 
 // mutations
@@ -60,6 +65,26 @@ const SOCKET_UPDATE_SHAREABLE_UNIT_BOOKING__SUCCESS = (state, response) => {
   }
 }
 
+const SOCKET_CANCEL_SHAREABLE_UNIT_BOOKING__SUCCESS = (state, response) => {
+  const { bookingId, date, roomId } = response[0]
+
+  if (state.myBookings[date]) {
+    const idx = state.myBookings[date].findIndex(i => i._id === bookingId)
+
+    if (idx !== -1) {
+      Vue.delete(state.myBookings[date], idx)
+    }
+  }
+
+  if (state.items[roomId]) {
+    const idx = state.items[roomId].findIndex(i => i._id === bookingId)
+
+    if (idx !== -1) {
+      Vue.delete(state.items[roomId], idx)
+    }
+  }
+}
+
 const SOCKET_GET_MY_SHAREABLE_UNIT_BOOKINGS__SUCCESS = (state, response) => {
   response[0].forEach(b => {
     if (state.myBookings[b.date]) {
@@ -74,6 +99,7 @@ const mutations = {
   setLoading,
   SOCKET_GET_SHAREABLE_UNIT_BOOKINGS_BY_ROOM_ID__SUCCESS,
   SOCKET_UPDATE_SHAREABLE_UNIT_BOOKING__SUCCESS,
+  SOCKET_CANCEL_SHAREABLE_UNIT_BOOKING__SUCCESS,
   SOCKET_GET_MY_SHAREABLE_UNIT_BOOKINGS__SUCCESS,
 }
 

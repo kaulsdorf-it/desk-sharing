@@ -31,7 +31,7 @@ export class ShareableUnitBookingService {
 		return this.repository.update(shareableUnitBooking)
 	}
 
-	// async remove( shareableUnitBookingId: string ): Promise<ShareableUnitBooking> {
-	// 	return this.repository.remove(shareableUnitBookingId)
-	// }
+	remove( shareableUnitBookingId: string ) {
+		return this.repository.remove(shareableUnitBookingId)
+	}
 }

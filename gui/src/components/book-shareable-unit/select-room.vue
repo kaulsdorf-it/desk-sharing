@@ -1,17 +1,14 @@
 <template>
-  <ValidationProvider :rules="rules" v-slot="{ errors }">
-    <v-select
-      :disabled="!buildingId"
-      :error-messages="errors"
-      :items="items"
-      clearable
-      filled
-      item-text="name"
-      item-value="_id"
-      label="Raum"
-      v-model="value"
-    />
-  </ValidationProvider>
+  <v-select
+    :disabled="!buildingId"
+    :items="items"
+    clearable
+    filled
+    item-text="name"
+    item-value="_id"
+    label="Raum"
+    v-model="value"
+  />
 </template>
 
 <script>
@@ -36,12 +33,6 @@
         }
       }
     },
-
-    data: () => ({
-      rules: {
-        required: true,
-      },
-    }),
 
     props: {
       buildingId: {
