@@ -15,6 +15,7 @@ export default class {
 	}
 
 	connect = async () => {
+		console.log('mongoDb', this.config.mongoDb)
 		while ( this.notConnected && this.retriesLeft > 0 ) {
 			try {
 				this.instance = await this._connect()
