@@ -1,24 +1,9 @@
 import { ServerConfigService } from '../services/server-config'
-import { Adapters } from '../adapter'
 import ActiveDirectory from 'activedirectory'
 import { ILdapUser, LdapAuth } from '../auth-providers/ldap'
 import Moment from 'moment'
 
 export const registerServerConfigEndpoints = ( io, socket ): void => {
-	const checkRegistryServerUrl = async ( url: string ): Promise<void> => {
-		const registryServerApi = new Adapters.general.RegistryServerApi({
-			timeout: 2000,
-			baseUrl: ''
-		})
-
-		try {
-			await registryServerApi.checkService(url)
-			socket.emit('check_registry_server_url_success')
-		} catch ( e ) {
-			socket.emit('check_registry_server_url_failed', e)
-		}
-	}
-
 	const checkLdapServerUrl = async ( url: string ) => {
 		const options = {
 			url,
@@ -97,7 +82,6 @@ export const registerServerConfigEndpoints = ( io, socket ): void => {
 	}
 
 	socket
-		.on('check-registry-server-url', checkRegistryServerUrl)
 		.on('check-ldap-server-url', checkLdapServerUrl)
 		.on('check-technical-user-against-ldap', checkTechnicalUserAgainstLdap)
 		.on('register-server', registerServer)

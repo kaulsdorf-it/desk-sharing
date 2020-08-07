@@ -1,9 +1,7 @@
 import { MailQueueService } from '../services/mail-queue'
 import { ISend, MailService } from '../services/mail'
 import { MailQueue } from '../db-schemas/mail-queue'
-import { ServerConfigService } from '../services/server-config'
 import { MailServerService } from '../services/mail-servers'
-import { UsageTypeEnum } from '../db-schemas/server-config'
 
 export const startProcessMailQueue = async () => {
 	const mailServerService = new MailServerService()
@@ -16,21 +14,6 @@ export const startProcessMailQueue = async () => {
 	}
 
 	if ( mailQueueItems.length > 0 ) {
-		const serverConfig = await ServerConfigService.getConfig()
-
-		let contentPrefix = ''
-
-		if ( serverConfig?.serverDescription.usageType !== UsageTypeEnum.PRODUCTION ) {
-			contentPrefix = `
-			<div style="color: darkred; font-weight: bold;">
-				<div>=================================================================================================</div>
-				<div>Dies ist KEIN Produktiv-, sondern ein ${ serverConfig?.serverDescription.usageType }-System!</div>
-				<div>Bitte verzichten Sie auf diesem Server weitestgehend auf die Eingabe von personenbezogenen Daten.</div>
-				<div>=================================================================================================</div>
-			</div>
-			<br/><br/>`
-		}
-
 		for ( const mailData of mailQueueItems ) {
 			const mailServer = await mailServerService.getById(mailData.mailServerId)
 
@@ -50,7 +33,7 @@ export const startProcessMailQueue = async () => {
 				cc: mailData.cc,
 				bcc: mailData.bcc,
 				subject: mailData.subject,
-				html: contentPrefix + mailData.content,
+				html: mailData.content,
 				attachments: mailData.attachments,
 			}
 

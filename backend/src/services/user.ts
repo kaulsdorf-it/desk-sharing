@@ -140,7 +140,7 @@ export class UserService {
 				mailServerId: mailServer._id,
 				to: [user.mail, 'guido.drahota@deutschebahn.com'],
 				subject: 'Bitte bestätigen Sie Ihre Registrierung!',
-				content: `Willkommen bei ${ serverConfig.serverDescription.companyName } FORMS!
+				content: `Willkommen bei Desk Sharing!
 <br/><br/>
 Mit dieser E-Mail-Adresse ist soeben ein Benutzerkonto beantragt worden.
 <br/><br/>
@@ -149,7 +149,7 @@ Sollten Sie dieses Benutzerkonto NICHT beantragt haben, unternehmen Sie nichts. 
 <br/>
 <b>Bitte klicken Sie <a href="${ confirmationLink }">hier</a>, um Ihren Antrag zu bestätigen!</b>
 <br/><br/><br/>
-${ serverConfig.serverDescription.companyName } FORMS
+Desk Sharing
 `
 			}
 			await mailQueueService.add(mail)
@@ -283,14 +283,14 @@ ${ serverConfig.serverDescription.companyName } FORMS
 				// @ts-ignore
 				mailServerId: mailServer._id,
 				to: [user.mail, 'guido.drahota@deutschebahn.com'],
-				subject: 'Ihre Registrierung bei FORMS',
-				content: `Ihr benutzerkonto bei ${ serverConfig.serverDescription.companyName } FORMS!
+				subject: 'Ihre Registrierung bei Desk Sharing',
+				content: `Ihr benutzerkonto bei Desk Sharing
 <br/><br/>
 Ihr Benutzerkonto wurde aktiviert.
 <br/><br/>
 Soe können sich ab sofort mit Ihrem Benutzernamen (${ savedUser.accountName }) auf ${ serverConfig.hostName } anmelden.
 <br/><br/><br/>
-${ serverConfig.serverDescription.companyName } FORMS
+Desk Sharing
 `
 			}
 			await mailQueueService.add(mail)
