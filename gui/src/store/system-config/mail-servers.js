@@ -45,8 +45,6 @@ const SOCKET_REMOVE_MAIL_SERVER_SUCCESS = (state, response) => {
   const id = response[0]
   const idx = state.items.findIndex(i => i._id === id)
 
-  console.log('SOCKET_REMOVE_MAIL_SERVER_SUCCESS', idx, id)
-
   if (idx !== -1) {
     Vue.delete(state.items, idx)
   }

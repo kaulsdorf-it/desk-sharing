@@ -23,22 +23,6 @@ export default [
           requiredRole: ['admin'],
         },
       },
-      //{
-      //  path: 'form-api-keys',
-      //  name: 'form-api-keys',
-      //  component: FormApiKeys,
-      //  meta: {
-      //    title: 'API-Keys verwalten',
-      //    requiredRole: ['admin'],
-      //  },
-      //  children: [
-      //    {
-      //      path: ':formApiKeyId',
-      //      name: 'form-api-key',
-      //      component: FormApiKey,
-      //    }
-      //  ]
-      //},
       {
         name: 'manage-users',
         path: 'manage-users',

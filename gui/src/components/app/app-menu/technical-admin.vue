@@ -36,7 +36,7 @@
       menuItems() {
         const menuItems = []
         if (this.isAllowed('admin')) {
-          //menuItems.push()
+          // menuItems.push()
         }
 
         return menuItems

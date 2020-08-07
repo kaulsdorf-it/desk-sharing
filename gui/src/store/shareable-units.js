@@ -1,3 +1,4 @@
+import Vue from 'vue'
 import { sortByName } from '../functions/sortStringValues'
 
 const state = {
