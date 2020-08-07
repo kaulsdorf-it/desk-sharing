@@ -5,15 +5,13 @@ services:
     image: kaulsdorfit/desk-sharing:latest
     environment:
       - VIRTUAL_HOST=desk-sharing.dbt.db.de
-      - VIRTUAL_PORT=3000
+      - VIRTUAL_PORT=8080
       - NODE_ENV=development
     networks:
       - deskSharing
       - nginx-proxy
     depends_on:
       - desk-sharing-mongodb
-    ports:
-      - 3000:3000
 
   desk-sharing-mongodb:
     image: mongo:3.6
@@ -29,7 +27,7 @@ services:
       - deskSharing
 
 networks:
-  deskSharing:
+  default:
   nginx-proxy:
     external:
       name: nginx-proxy
