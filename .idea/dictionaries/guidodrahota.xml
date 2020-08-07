@@ -2,8 +2,10 @@
   <dictionary name="guidodrahota">
     <words>
       <w>anmelden</w>
+      <w>antrag</w>
       <w>auszuführen</w>
       <w>beabsichtigen</w>
+      <w>beantragt</w>
       <w>benutzerkonto</w>
       <w>benutzerverwaltung</w>
       <w>benötigen</w>
@@ -27,9 +29,11 @@
       <w>stornieren</w>
       <w>testuser</w>
       <w>tisch</w>
+      <w>unternehmen</w>
       <w>unterwegs</w>
       <w>verfügbare</w>
       <w>vergeben</w>
+      <w>willkommen</w>
     </words>
   </dictionary>
 </component>

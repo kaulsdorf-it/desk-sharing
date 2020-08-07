@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  desk-sharing-backend:
+    build:
+      context: .
+      dockerfile: ./Dockerfile.production
+    ports:
+      - 3000:3000
+    environment:
+      - NODE_ENV=development
+    depends_on:
+      - desk-sharing-mongodb
+
+  desk-sharing-mongodb:
+    hostname: desk-sharing-mongodb
+    image: library/mongo:3.6.19-xenial
+    ports:
+      - 27017:27017
+    restart: always
+    volumes:
+      - desk-sharing_mongo_data:/data/db
+    entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--journal","--smallfiles" ]
+    environment:
+      - AUTH=no
+
+networks:
+  default:
+
+volumes:
+  desk-sharing_mongo_data:

@@ -18,7 +18,6 @@ RUN cd backend && yarn build
 FROM node:12-alpine
 
 WORKDIR /app
-COPY backend/src/certs ./src/certs
 COPY backend/package.json backend/yarn.lock ./
 RUN yarn install --prod --frozen-lockfile
 
