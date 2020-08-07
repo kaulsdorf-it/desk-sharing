@@ -20,9 +20,9 @@ jobs:
     - uses: actions/checkout@v2
     - name: build desk sharing backend
       run:  |
-        cd desk-sharing/backend
+        cd ./backend
         yarn install --frozen-lockfile && yarn build
     - name: build desk-sharing gui
       run: |
-        cd desk-sharing/gui
+        cd ./gui
         yarn install --frozen-lockfile && yarn build
