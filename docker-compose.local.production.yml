@@ -4,12 +4,9 @@ services:
   desk-sharing-backend:
     image: kaulsdorfit/desk-sharing:latest
     environment:
-      - VIRTUAL_HOST=desk-sharing.dbt.db.de
-      - VIRTUAL_PORT=8080
-      - NODE_ENV=development
+      - NODE_ENV=production
     networks:
       - deskSharing
-      - nginx-proxy
     depends_on:
       - desk-sharing-mongodb
 
@@ -19,7 +16,7 @@ services:
       - 27117:27017
     restart: always
     volumes:
-      - /srv/docker-volumes/forms_data:/data/db
+      - ./mongo_data:/data/db
     entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--journal","--smallfiles" ]
     environment:
       - AUTH=no
@@ -28,6 +25,3 @@ services:
 
 networks:
   deskSharing:
-  nginx-proxy:
-    external:
-      name: nginx-proxy
