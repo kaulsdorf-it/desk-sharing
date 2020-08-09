@@ -18,6 +18,9 @@
     "build:types": "tsc --emitDeclarationOnly",
     "build:js": "babel src --out-dir dist --extensions \".ts,.tsx,.js\" --source-maps inline --copy-files"
   },
+  "engines": {
+    "node": ">=12.18.0"
+  },
   "keywords": [],
   "dependencies": {
     "@typegoose/typegoose": "^6.1.8",
