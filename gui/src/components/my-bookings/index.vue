@@ -6,23 +6,37 @@
     bottom
     class="px-4"
     right
-    width="400"
+    width="700"
   >
     <v-chip class="my-4" label>Meine Buchungen</v-chip>
     <v-divider/>
 
-    <v-row :key="date" v-for="date of Object.keys(myBookings).sort()">
-      <v-col class="pb-0" cols="3">{{$moment(date).format('DD.MM.Y')}}</v-col>
-      <v-col class="pb-0" cols="9">{{ myBookings[date][0].timeFrom }}-{{ myBookings[date][0].timeTill }} Uhr</v-col>
-
-      <v-col class="pt-0 pb-4" cols="12">
-        <shareable-unit :shareable-unit-id="myBookings[date][0].shareableUnitId"/>
-      </v-col>
-
-      <v-col cols="12">
-        <v-divider/>
-      </v-col>
-    </v-row>
+    <v-sheet height="880">
+      <v-calendar
+        :weekdays="[ 1, 2, 3, 4, 5, 6, 0]"
+        color="primary"
+        ref="calendar"
+        short-weekdays
+        type="month"
+        v-model="start"
+      >
+        <template v-slot:day="{ present, past, date }">
+          <v-row class="fill-height">
+            <template v-if="myBookings[date]">
+              <v-sheet
+                class="caption px-4"
+                height="100%"
+                tile
+                width="100%"
+              >
+                <div>{{ myBookings[date][0].timeFrom }}-{{ myBookings[date][0].timeTill }}</div>
+                <shareable-unit :shareable-unit-id="myBookings[date][0].shareableUnitId"/>
+              </v-sheet>
+            </template>
+          </v-row>
+        </template>
+      </v-calendar>
+    </v-sheet>
   </v-navigation-drawer>
 </template>
 
@@ -39,6 +53,17 @@
       ...mapGetters({
         myBookings: 'shareableUnitBookings/getMyBookings',
       }),
-    }
+      bookings() {
+        return Object.keys(this.myBookings)
+          .map(date => ({
+            date,
+            booking: this.myBookings[date][0],
+          }))
+      },
+    },
+
+    data: () => ({
+      start: '2020-08-03',
+    }),
   }
 </script>

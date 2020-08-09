@@ -1,9 +1,9 @@
 <template>
-  <v-row>
-    <v-col cols="4" class="body-1">{{ room.name }}</v-col>
-    <v-col cols="6" class="body-1">{{ shareableUnit.name }}</v-col>
-    <v-col class="py-0 body-2" cols="12">{{ building.name }}</v-col>
-  </v-row>
+  <div class="blue-grey lighten-4 pa-1">
+    <div>{{ building.name }}</div>
+    <div>R. {{ room.name }}</div>
+    <div>{{ shareableUnit.name }}</div>
+  </div>
 </template>
 
 <script>

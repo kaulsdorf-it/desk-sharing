@@ -65,53 +65,53 @@ const buildings = [
 const rooms = [
 	{
 		'_id': '5f1eb859e5d76c30f9afe4a0',
-		'name': 'Raum A1.01',
+		'name': 'A1.01',
 		'buildingId': '5f1eb041e5d76c30f9afe4d0'
 	},
 	{
 		'_id': '5f1eb859e5d76c30f9afe4a1',
-		'name': 'Raum A1.02',
+		'name': 'A1.02',
 		'buildingId': '5f1eb041e5d76c30f9afe4d0'
 	},
 	{
 		'_id': '5f1eb859e5d76c30f9afe4a2',
-		'name': 'Raum A1.03',
+		'name': 'A1.03',
 		'buildingId': '5f1eb041e5d76c30f9afe4d0'
 	},
 	{
 		'_id': '5f1eb859e5d76c30f9afe4a3',
-		'name': 'Raum A1.04',
+		'name': 'A1.04',
 		'buildingId': '5f1eb041e5d76c30f9afe4d0'
 	},
 	{
 		'_id': '5f1eb859e5d76c30f9afe4a4',
-		'name': 'Raum A1.05',
+		'name': 'A1.05',
 		'buildingId': '5f1eb041e5d76c30f9afe4d0'
 	},
 
 	{
 		'_id': '5f1eb859e5d76c30f9afe4e5',
-		'name': 'Raum B1.01',
+		'name': 'B1.01',
 		'buildingId': '5f1eb859e5d76c30f9afe4e1'
 	},
 	{
 		'_id': '5f1eb859e5d76c30f9afe4a6',
-		'name': 'Raum B1.02',
+		'name': 'B1.02',
 		'buildingId': '5f1eb859e5d76c30f9afe4e1'
 	},
 	{
 		'_id': '5f1eb859e5d76c30f9afe4a7',
-		'name': 'Raum B1.03',
+		'name': 'B1.03',
 		'buildingId': '5f1eb859e5d76c30f9afe4e1'
 	},
 	{
 		'_id': '5f1eb859e5d76c30f9afe4a8',
-		'name': 'Raum B1.04',
+		'name': 'B1.04',
 		'buildingId': '5f1eb859e5d76c30f9afe4e1'
 	},
 	{
 		'_id': '5f1eb859e5d76c30f9afe4aa',
-		'name': 'Raum B1.05',
+		'name': 'B1.05',
 		'buildingId': '5f1eb859e5d76c30f9afe4e1'
 	},
 ]

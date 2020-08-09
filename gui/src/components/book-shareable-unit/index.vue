@@ -1,7 +1,7 @@
 <template>
   <v-container fluid>
-    <v-row>
-      <v-col cols="3">
+    <div>
+      <span style="width: 330px; float: left;">
         <v-card>
           <v-card-text style="height: calc(100vh - 150px); overflow-y: auto;">
             <select-building
@@ -27,9 +27,9 @@
             />
           </v-card-text>
         </v-card>
-      </v-col>
+      </span>
 
-      <v-col cols="9">
+      <span style="position: relative; float: left; width: calc(100% - 355px); margin-left: 20px">
         <v-card class="px-4" style="height: calc(100vh - 150px); overflow-y: auto; position: relative">
           <show-shareable-units
             :date="selectedDate"
@@ -40,8 +40,8 @@
             v-if="selectedDate && selectedRoomId && selectedTimeSpanFrom && selectedTimeSpanTill"
           />
         </v-card>
-      </v-col>
-    </v-row>
+      </span>
+    </div>
   </v-container>
 </template>
 

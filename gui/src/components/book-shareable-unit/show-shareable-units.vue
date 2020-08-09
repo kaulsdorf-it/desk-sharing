@@ -1,13 +1,14 @@
 <template>
   <div>
-    <v-alert :value="haveIBookedAlready" type="warning">
-      Sie haben für diesen Tag bereits einen Tisch gebucht. Pro Tag kann nur ein Tisch gebucht werden.
+    <v-alert :value="haveIBookedAlready" class="mt-4 mb-1" type="info">
+      Sie haben für diesen Tag bereits einen Tisch gebucht. <b>Pro Tag</b> kann <b>nur ein Tisch</b> gebucht werden.
     </v-alert>
 
     <v-row>
       <v-col
         :key="unit._id"
-        cols="4"
+        cols="12"
+        lg="6"
         v-for="unit of shareableUnits"
       >
         <shareable-unit

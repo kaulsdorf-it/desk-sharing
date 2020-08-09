@@ -10,8 +10,8 @@
         v-for="booking of bookings"
         v-if="bookings.length > 0"
       >
-        <v-col cols="3">{{ booking.timeFrom }}-{{ booking.timeTill }}</v-col>
-        <v-col cols="7">
+        <v-col cols="4">{{ booking.timeFrom }}-{{ booking.timeTill }}</v-col>
+        <v-col cols="6">
           <div v-if="myself._id === booking.userId">Reserviert für mich</div>
           <div v-else>Reserviert<br/>#{{ booking.userId }}</div>
         </v-col>
