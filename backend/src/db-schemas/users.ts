@@ -3,8 +3,6 @@ import Moment from 'moment'
 
 export enum EnumUserRole {
 	ADMIN = 'admin',
-	FORM_STAGE_MANAGER = 'form-stage-manager',
-	FORM_DESIGNER = 'form-designer'
 }
 
 export enum UserStatus {

@@ -13,8 +13,8 @@ export default [
     }
   },
   {
-    name: 'about-us',
-    path: '/about-us',
+    name: 'about-this-app',
+    path: '/about-this-app',
     component: AboutUs,
     meta: {
       title: 'Über uns',

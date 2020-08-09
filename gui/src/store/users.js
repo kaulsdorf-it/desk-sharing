@@ -206,12 +206,6 @@ const getUserRolesObjects = state => {
       case 'admin':
         text = 'Administrator'
         break
-      case 'form-stage-manager':
-        text = 'Freigabeverantwortliche(r)'
-        break
-      case 'form-designer':
-        text = 'Formularersteller / -pfleger'
-        break
       default:
         text = role
     }

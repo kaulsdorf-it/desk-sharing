@@ -4,7 +4,7 @@
       <template v-slot:activator="{ on }">
         <v-btn color="secondary" text v-on="on">
           <v-badge :value="showTopLevelIndicator" color="pink" dot>
-            <v-icon>mdi-settings-outline</v-icon>
+            <v-icon>mdi-shield-account</v-icon>
           </v-badge>
         </v-btn>
       </template>
@@ -36,9 +36,18 @@
       }),
       menuItems() {
         const adminMenuItems = getMenuItemsForAdmin(this.usersNotYetCleared)
-        return [
-          adminMenuItems.menuItemManageMailServer
-        ]
+
+        const menuItems = []
+
+        if (this.isAllowed('admin')) {
+          menuItems.push(adminMenuItems.menuItemManageUsers)
+
+          if (this.getAuthProviders.find(i => i.type === 'local')) {
+            menuItems.push(adminMenuItems.menuItemNewAndConfirmedLocalUsers)
+          }
+        }
+
+        return menuItems
       },
       showTopLevelIndicator() {
         return this.menuItems.find(i => i.showIndicator) || false

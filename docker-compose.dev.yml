@@ -20,7 +20,7 @@ services:
   desk-sharing-mongodb:
     image: mongo:3.6
     ports:
-      - 27117:27017
+      - 27017:27017
     restart: always
     volumes:
       - ./db_data:/data/db

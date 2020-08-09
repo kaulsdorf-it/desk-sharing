@@ -6,6 +6,7 @@ import { ShareableUnitService } from '../services/shareable-units'
 import { EnumAuthProviderType } from './enums/auth-provider-types'
 
 const serverConfig = {
+	_id: '5f2ff5f9dcbc1b0022ce0c6c',
 	hostName: 'localhost',
 	authProviders: [{
 		type: EnumAuthProviderType.LOCAL,

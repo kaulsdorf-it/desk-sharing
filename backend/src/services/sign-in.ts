@@ -104,7 +104,7 @@ export class SignInService {
 				const hasAnyUser = await userService.hasAnyUser()
 
 				if ( !hasAnyUser ) {
-					newUser.roles = [EnumUserRole.ADMIN, EnumUserRole.FORM_STAGE_MANAGER, EnumUserRole.FORM_DESIGNER]
+					newUser.roles = [EnumUserRole.ADMIN]
 				}
 
 				return userService.add(newUser)

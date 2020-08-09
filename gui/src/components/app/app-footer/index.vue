@@ -1,7 +1,5 @@
 <template>
   <v-footer :color="isConnected ? 'blue-grey darken-1' : 'error lighten-4'" app class="pl-2 pr-2" dark style="height: 36px">
-    <v-spacer/>
-
     <v-tooltip top>
       <template v-slot:activator="{ on }">
         <v-icon
@@ -19,6 +17,8 @@
         Sie sind {{ isConnected ? '' : 'NICHT ' }}mit dem FORMS Server verbunden.
       </span>
     </v-tooltip>
+
+    <v-spacer/>
 
     <v-tooltip top v-if="isAdmin">
       <template v-slot:activator="{ on }">

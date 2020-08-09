@@ -14,23 +14,26 @@
           <v-icon large>mdi-calendar</v-icon>
         </v-btn>
 
+        <application-admin v-if="isAdmin"/>
         <technical-admin v-if="isAdmin"/>
-      </template>
 
-      <about-us/>
+        <v-btn color="primary" exact text to="/about-this-app">
+          <v-icon large>mdi-information-outline</v-icon>
+        </v-btn>
+      </template>
     </v-toolbar-items>
     <user-account/>
   </v-app-bar>
 </template>
 
 <script>
+  import ApplicationAdmin from './application-admin'
   import TechnicalAdmin from './technical-admin'
   import UserAccount from './user-account'
-  import AboutUs from './about-us'
 
   export default {
     components: {
-      AboutUs,
+      ApplicationAdmin,
       TechnicalAdmin,
       UserAccount,
     },
