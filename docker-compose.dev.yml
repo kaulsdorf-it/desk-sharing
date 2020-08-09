@@ -2,18 +2,20 @@ version: '2'
 
 services:
   desk-sharing-backend:
-    image: kaulsdorfit/desk-sharing:latest
+    build:
+      context: ./backend
+      dockerfile: ./Dockerfile
+    ports:
+      - 3000:3000
+    command: yarn dev
+    volumes:
+      - ./backend/:/usr/app/
     environment:
-      - VIRTUAL_HOST=desk-sharing.dbt.db.de
-      - VIRTUAL_PORT=3000
       - NODE_ENV=development
     networks:
       - deskSharing
-      - nginx-proxy
     depends_on:
       - desk-sharing-mongodb
-    ports:
-      - 3000:3000
 
   desk-sharing-mongodb:
     image: mongo:3.6
@@ -21,7 +23,7 @@ services:
       - 27117:27017
     restart: always
     volumes:
-      - /srv/docker-volumes/forms_data:/data/db
+      - ./db_data:/data/db
     entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--journal","--smallfiles" ]
     environment:
       - AUTH=no
@@ -30,6 +32,3 @@ services:
 
 networks:
   deskSharing:
-  nginx-proxy:
-    external:
-      name: nginx-proxy

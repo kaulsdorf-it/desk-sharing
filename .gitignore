@@ -1,2 +1,3 @@
-mongo_data
+db_data
 *.log
+mongo_data
