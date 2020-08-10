@@ -8,15 +8,16 @@ const state = {
 
 // actions
 const addAction = (context, building) => {
-  socket.send('add-rooms', building)
+  socket.send('add-room', building)
+  console.log('add-room', building)
 }
 
 const updateAction = (context, building) => {
-  socket.send('update-rooms', building)
+  socket.send('update-room', building)
 }
 
 const removeAction = (context, buildingId) => {
-  socket.send('remove-rooms', buildingId)
+  socket.send('remove-room', buildingId)
 }
 
 const actions = {

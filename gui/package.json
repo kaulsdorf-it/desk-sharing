@@ -42,7 +42,7 @@
     "vue-router": "^3.0.1",
     "vue-signature-pad": "^1.1.18",
     "vue-socket.io": "2.1.1-b",
-    "vuetify": "2.3.6",
+    "vuetify": "2.3.8",
     "vuex": "~3.0.1"
   },
   "devDependencies": {

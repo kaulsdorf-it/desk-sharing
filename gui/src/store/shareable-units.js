@@ -1,12 +1,18 @@
 import Vue from 'vue'
 import { sortByName } from '../functions/sortStringValues'
+import { socket } from '../plugins/socket-io'
 
 const state = {
   items: [],
 }
 
 // actions
-const actions = {}
+const addAction = (context, item) => {
+  socket.send('add-shareable-unit', item)
+}
+const actions = {
+  addAction,
+}
 
 // mutations
 const SOCKET_GET_ALL_SHAREABLE_UNITS__SUCCESS = (state, response) => {

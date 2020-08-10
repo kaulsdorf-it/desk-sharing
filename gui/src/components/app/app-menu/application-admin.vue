@@ -39,13 +39,13 @@
 
         const menuItems = []
 
-        if (this.isAllowed('admin')) {
-          menuItems.push(adminMenuItems.menuItemManageUsers)
+        menuItems.push(adminMenuItems.menuItemManageUsers)
 
-          if (this.getAuthProviders.find(i => i.type === 'local')) {
-            menuItems.push(adminMenuItems.menuItemNewAndConfirmedLocalUsers)
-          }
+        if (this.getAuthProviders.find(i => i.type === 'local')) {
+          menuItems.push(adminMenuItems.menuItemNewAndConfirmedLocalUsers)
         }
+
+        menuItems.push(adminMenuItems.menuItemInventories)
 
         return menuItems
       },

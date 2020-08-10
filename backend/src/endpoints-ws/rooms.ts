@@ -32,8 +32,10 @@ export const registerRoomEndpoints = ( io, socket ): void => {
 	}
 
 	const add = async ( room: Room ): Promise<void> => {
+		console.log('add room', room)
 		try {
 			const storedRoom: Room = await roomService.add(room)
+			console.log('update_room__success', storedRoom)
 			io.emit('update_room__success', storedRoom)
 		} catch ( e ) {
 			socket.emit('add_room__failed', e)

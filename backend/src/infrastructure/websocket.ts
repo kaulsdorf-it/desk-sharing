@@ -165,13 +165,5 @@ export const bindWebSocketToServer = async server => {
 			next(new Error(`ACCESS DENIED FOR ${ packet[0] }`))
 			return
 		})
-
-		const appConfig = await ServerConfigService.getConfig()
-
-		if ( appConfig ) {
-			socket.emit('server_config_success', appConfig)
-		} else {
-			socket.emit('server_config_empty')
-		}
 	})
 }

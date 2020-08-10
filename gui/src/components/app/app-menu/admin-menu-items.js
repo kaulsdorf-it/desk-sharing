@@ -1,7 +1,7 @@
 export const getMenuItemsForAdmin = usersNotYetCleared => ({
- menuItemManageUsers: {
+  menuItemManageUsers: {
     to: { name: 'manage-users' },
-    color: 'warning',
+    color: 'success',
     icon: 'mdi-account-group',
     label: 'Benutzerverwaltung',
   },
@@ -19,5 +19,12 @@ export const getMenuItemsForAdmin = usersNotYetCleared => ({
     color: 'info',
     icon: 'mdi-at',
     label: 'E-Mail Server',
+  },
+
+  menuItemInventories: {
+    to: { name: 'manage-shareable-units' },
+    color: 'default',
+    icon: 'mdi-view-dashboard',
+    label: 'Buchbare Einheiten verwalten',
   },
 })

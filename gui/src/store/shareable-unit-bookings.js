@@ -112,12 +112,14 @@ const mutations = {
 }
 
 // getters
+const getByRoomIdAndShareableUnitIdAndDate = state => (roomId, shareableUnitId, date) => {
+  return state.items[roomId]
+    ? state.items[roomId].filter(i => i.shareableUnitId === shareableUnitId && i.date === date)
+    : []
+}
+
 const getters = {
-  getByRoomIdAndShareableUnitIdAndDate: state => (roomId, shareableUnitId, date) => {
-    return state.items[roomId]
-      ? state.items[roomId].filter(i => i.shareableUnitId === shareableUnitId && i.date === date)
-      : []
-  },
+  getByRoomIdAndShareableUnitIdAndDate,
   getMyBookingsByDate: state => date => state.myBookings[date] || [],
   getMyBookings: state => state.myBookings,
 }

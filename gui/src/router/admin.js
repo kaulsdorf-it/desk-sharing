@@ -4,6 +4,7 @@ import UsersSelectUser from '../components/admin/users/index'
 import UsersManageUser from '../components/admin/users/manage-user'
 import ManageMailServer from '../components/admin/mail-server'
 import ManageSingleMailServer from '../components/admin/mail-server/manage-single-mail-server'
+import ManageShareableUnits from '../components/admin/shareable-units'
 
 export default [
   {
@@ -55,7 +56,16 @@ export default [
             component: ManageSingleMailServer,
           }
         ]
-      }
+      },
+      {
+        name: 'manage-shareable-units',
+        path: 'manage-shareable-units',
+        component: ManageShareableUnits,
+        meta: {
+          title: 'Buchbare Einheiten verwalten',
+          requiredRole: ['admin'],
+        },
+      },
     ]
   }
 ]

@@ -13,6 +13,7 @@
 
     <v-card>
       <v-toolbar :color="$attrs.headerBgColor || 'primary'" dark dense>
+        <v-icon left v-if="$attrs.dialogIcon">{{ $attrs.dialogIcon }}</v-icon>
         <div style="width: calc(100% - 30px)">
           <v-toolbar-title>{{ title }}</v-toolbar-title>
         </div>

@@ -47,6 +47,7 @@
     <div id="delete-dialog">
       <v-card>
         <v-toolbar color="indigo" dark dense>
+          <v-icon left v-if="dialogIcon">{{ dialogIcon }}</v-icon>
           <v-toolbar-title>{{ title }}</v-toolbar-title>
           <v-spacer/>
           <v-btn @click="disagree" icon small>
@@ -98,6 +99,10 @@
         required: true
       },
       description: {
+        type: String,
+        required: false
+      },
+      dialogIcon: {
         type: String,
         required: false
       },
