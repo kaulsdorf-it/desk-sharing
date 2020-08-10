@@ -8,11 +8,6 @@
   import ShareableUnit from './shareable-unit'
 
   export default {
-    components: {
-      NewBuilding,
-      NewRoom,
-    },
-
     computed: {
       component() {
         switch (this.parent.type) {

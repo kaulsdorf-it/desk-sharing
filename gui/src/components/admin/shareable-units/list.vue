@@ -1,5 +1,5 @@
 <template>
-  <v-card style="height: calc(100vh - 150px)">
+  <v-card>
     <add :parent="{}"/>
 
     <v-card-title>
@@ -8,11 +8,10 @@
 
     <v-divider/>
 
-    <v-card-text>
+    <v-card-text style="height: calc(100vh - 220px); overflow-y: auto;">
       <v-treeview
         :items="treeNodes"
         :open.sync="open"
-        open-on-click
       >
         <template v-slot:prepend="{ item }">
           <v-icon>
@@ -21,7 +20,7 @@
         </template>
 
         <template v-slot:label="{ item }">
-          <span class="pr-3">{{ item.name }}</span>
+          <span @click="$emit('select', item)" class="pr-3">{{ item.name }}</span>
           <add :parent="item" v-if="item.type !== 'shareableUnit'"/>
           <confirm-dialog
             :description="getRemoveItemDialogDescription(item)"
@@ -75,7 +74,8 @@
     },
 
     data: () => ({
-      open: []
+      open: [],
+      selected: null
     }),
 
     methods: {

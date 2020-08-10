@@ -10,8 +10,14 @@ const state = {
 const addAction = (context, item) => {
   socket.send('add-shareable-unit', item)
 }
+
+const updateAction = (context, item) => {
+  socket.send('update-shareable-unit', item)
+}
+
 const actions = {
   addAction,
+  updateAction,
 }
 
 // mutations
