@@ -9,7 +9,6 @@ const state = {
 // actions
 const addAction = (context, building) => {
   socket.send('add-room', building)
-  console.log('add-room', building)
 }
 
 const updateAction = (context, building) => {

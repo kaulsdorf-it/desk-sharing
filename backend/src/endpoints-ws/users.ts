@@ -131,7 +131,6 @@ export const registerClientEndpoints = ( io, socket ): void => {
 
 	const confirmUserAccount = async ( userAccountId: string ): Promise<void> => {
 		try {
-			console.log('confirmUserAccount', userAccountId)
 			const user = await userService.confirmUser(userAccountId)
 			socket.emit('CONFIRM_USER_ACCOUNT_SUCCESS', user)
 		} catch ( e ) {
