@@ -20,12 +20,13 @@
         </template>
 
         <template v-slot:label="{ item }">
-          <span @click="$emit('select', item)" class="pr-3">{{ item.name }}</span>
+          <span @click="$emit('select', item)" class="pr-3 clickable">{{ item.name }}</span>
           <add :parent="item" v-if="item.type !== 'shareableUnit'"/>
           <confirm-dialog
             :description="getRemoveItemDialogDescription(item)"
             :dialogIcon="getIcon(item.type)"
             :title="getRemoveItemDialogTitle(item)"
+            @agree="removeShareableUnit(item.id)"
           />
         </template>
       </v-treeview>
@@ -34,7 +35,7 @@
 </template>
 
 <script>
-  import { mapGetters } from 'vuex'
+  import { mapActions, mapGetters } from 'vuex'
   import Add from './add'
 
   export default {
@@ -79,6 +80,9 @@
     }),
 
     methods: {
+      ...mapActions({
+        removeShareableUnit: 'shareableUnits/removeAction'
+      }),
       getIcon(type) {
         switch (type) {
           case 'building':

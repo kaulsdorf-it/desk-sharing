@@ -17,16 +17,11 @@ export const registerShareableUnitsEndpoints = ( io, socket ): void => {
 
 	const getById = async ( buildingId: string ): Promise<void> => {
 		try {
-			const item: ShareableUnit = await shareableUnitService.getById(buildingId)
+			const item: ShareableUnit | null = await shareableUnitService.getById(buildingId)
 			socket.emit('get_shareable_unit_by_id__success', item)
 		} catch ( e ) {
 			socket.emit('get_shareable_unit_by_id__failed', e)
 		}
-	}
-
-	interface IGetAvailableShareableUnitsRequest {
-		roomId: string
-		date: string
 	}
 
 	const add = async ( shareableUnit: ShareableUnit ): Promise<void> => {
@@ -47,10 +42,15 @@ export const registerShareableUnitsEndpoints = ( io, socket ): void => {
 		}
 	}
 
-	const remove = async ( buildingId: string ): Promise<void> => {
+	const remove = async ( itemId: string ): Promise<void> => {
 		try {
-			await shareableUnitService.remove(buildingId)
-			io.emit('remove_shareable_unit__success', buildingId)
+			const { deletedCount } = await shareableUnitService.remove(itemId)
+
+			if ( deletedCount === 1 ) {
+				io.emit('remove_shareable_unit__success', itemId)
+			} else {
+				socket.emit('remove_shareable_unit__failed')
+			}
 		} catch ( e ) {
 			socket.emit('remove_shareable_unit__failed', e)
 		}

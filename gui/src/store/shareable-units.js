@@ -15,9 +15,14 @@ const updateAction = (context, item) => {
   socket.send('update-shareable-unit', item)
 }
 
+const removeAction = (context, itemId) => {
+  socket.send('remove-shareable-unit', itemId)
+}
+
 const actions = {
   addAction,
   updateAction,
+  removeAction,
 }
 
 // mutations
@@ -46,9 +51,20 @@ const SOCKET_UPDATE_SHAREABLE_UNIT__SUCCESS = (state, response) => {
   }
 }
 
+const SOCKET_REMOVE_SHAREABLE_UNIT__SUCCESS = (state, response) => {
+  const shareableUnitId = response[0]
+
+  const idx = state.items.findIndex(i => i._id === shareableUnitId)
+
+  if (idx !== -1) {
+    Vue.delete(state.items, idx)
+  }
+}
+
 const mutations = {
   SOCKET_GET_ALL_SHAREABLE_UNITS__SUCCESS,
   SOCKET_UPDATE_SHAREABLE_UNIT__SUCCESS,
+  SOCKET_REMOVE_SHAREABLE_UNIT__SUCCESS,
 }
 
 // getters

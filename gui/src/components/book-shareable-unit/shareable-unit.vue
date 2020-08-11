@@ -11,10 +11,12 @@
         v-if="bookings.length > 0"
       >
         <v-col cols="4">{{ booking.timeFrom }}-{{ booking.timeTill }}</v-col>
+
         <v-col cols="6">
           <div v-if="myself._id === booking.userId">Reserviert für mich</div>
           <div v-else>Reserviert<br/>#{{ booking.userId }}</div>
         </v-col>
+
         <v-col cols="2" style="position: relative; top: -8px; text-align: right">
           <confirm-dialog
             @agree="cancelBooking({bookingId: booking._id, date, roomId})"
@@ -25,7 +27,7 @@
         </v-col>
       </v-row>
 
-      <v-subheader v-if="bookings.length === 0">
+      <v-subheader style="height: 60px" v-if="bookings.length === 0">
         <i>noch frei buchbar</i>
       </v-subheader>
     </v-card-text>
@@ -68,10 +70,17 @@
 
     methods: {
       ...mapActions({
-        cancelBooking: 'shareableUnitBookings/cancelBookingAction'
+        cancelBooking: 'shareableUnitBookings/cancelBookingAction',
+        book: 'shareableUnitBookings/bookAction'
       }),
       submit() {
-        this.$emit('book', this.unit._id)
+        const payload = {
+          shareableUnitId: this.unit._id,
+          date: this.date,
+          timeFrom: this.timeFrom,
+          timeTill: this.timeTill,
+        }
+        this.book(payload)
       },
     },
 

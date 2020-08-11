@@ -1,5 +1,5 @@
 <template>
-  <div class="blue-grey lighten-4 pa-1">
+  <div class="pa-1">
     <div>{{ building.name }}</div>
     <div>R. {{ room.name }}</div>
     <div>{{ shareableUnit.name }}</div>

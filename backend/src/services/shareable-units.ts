@@ -2,17 +2,13 @@ import { ShareableUnitRepository } from '../repositories/shareable-units'
 import { ShareableUnit } from '../db-schemas/shareable-units'
 
 export class ShareableUnitService {
-	private readonly repository
-
-	constructor() {
-		this.repository = new ShareableUnitRepository()
-	}
+	private readonly repository = new ShareableUnitRepository()
 
 	async getAll(): Promise<ShareableUnit[]> {
 		return this.repository.getAll()
 	}
 
-	async getById( id: string ): Promise<ShareableUnit> {
+	async getById( id: string ): Promise<ShareableUnit | null> {
 		return this.repository.getById(id)
 	}
 
@@ -20,12 +16,9 @@ export class ShareableUnitService {
 		return this.repository.getByRoomId(roomId)
 	}
 
-	async getBookedShareableUnits( roomId: string, date: string ) {
-		return this.repository.getByRoomId(roomId)
-	}
-
 	async add( shareableUnit: ShareableUnit ): Promise<ShareableUnit> {
 		const item = await this.repository.add(shareableUnit)
+		// @ts-ignore
 		return this.getById(item._id)
 	}
 
@@ -33,7 +26,7 @@ export class ShareableUnitService {
 		return this.repository.update(shareableUnit)
 	}
 
-	async remove( shareableUnitId: string ): Promise<ShareableUnit> {
+	remove( shareableUnitId: string ) {
 		return this.repository.remove(shareableUnitId)
 	}
 }

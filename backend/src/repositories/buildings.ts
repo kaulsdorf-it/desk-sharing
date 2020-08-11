@@ -22,7 +22,7 @@ export class BuildingRepository {
 		return this.getById(building._id)
 	}
 
-	async remove( _id: string ): Promise<void> {
-		this.model.remove({ _id })
+	remove( _id: string ) {
+		return this.model.deleteOne({ _id })
 	}
 }

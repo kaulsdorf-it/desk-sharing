@@ -15,15 +15,6 @@ export class ShareableUnitRepository {
 		return this.model.find({ roomId }).lean()
 	}
 
-	async getBookedShareableUnits( roomId: string, date: string ): Promise<ShareableUnit[]> {
-		const query = {
-			roomId,
-			date,
-		}
-
-		return this.model.find(query).lean()
-	}
-
 	async add( shareableUnit: ShareableUnit ): Promise<ShareableUnit> {
 		return this.model.create(shareableUnit)
 	}
@@ -35,7 +26,7 @@ export class ShareableUnitRepository {
 		return this.getById(shareableUnit._id)
 	}
 
-	async remove( _id: string ): Promise<void> {
-		this.model.remove({ _id })
+	remove( _id: string ) {
+		return this.model.deleteOne({ _id })
 	}
 }

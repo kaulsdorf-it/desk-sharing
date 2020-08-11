@@ -1,6 +1,7 @@
 import Vue from 'vue'
-import { socket } from '../plugins/socket-io'
-import store from '../store'
+import { socket } from '../../plugins/socket-io'
+import store from '../../store'
+import selections from './selections'
 
 const state = {
   items: {},
@@ -112,11 +113,12 @@ const mutations = {
 }
 
 // getters
-const getByRoomIdAndShareableUnitIdAndDate = state => (roomId, shareableUnitId, date) => {
-  return state.items[roomId]
-    ? state.items[roomId].filter(i => i.shareableUnitId === shareableUnitId && i.date === date)
-    : []
-}
+const getByRoomIdAndShareableUnitIdAndDate =
+  state =>
+    (roomId, shareableUnitId, date) =>
+      state.myBookings[date]
+        ? state.myBookings[date].filter(i => i.shareableUnitId === shareableUnitId && i.date === date)
+        : []
 
 const getters = {
   getByRoomIdAndShareableUnitIdAndDate,
@@ -129,5 +131,8 @@ export default {
   state,
   actions,
   mutations,
-  getters
+  getters,
+  modules: {
+    selections
+  }
 }
