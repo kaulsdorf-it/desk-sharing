@@ -69,7 +69,8 @@ export class UserService {
 			user.status = UserStatus.ACTIVE
 		}
 
-		const serverConfig: ServerConfig | null = await ServerConfigService.getConfig()
+		const serverConfigService = new ServerConfigService()
+		const serverConfig: ServerConfig | null = await serverConfigService.getConfig()
 
 		if ( serverConfig === null ) {
 			throw ('NO SERVER CONFIG FOUND')
@@ -115,7 +116,8 @@ export class UserService {
 			user.status = UserStatus.ACTIVE
 		}
 
-		const serverConfig: ServerConfig | null = await ServerConfigService.getConfig()
+		const serverConfigService = new ServerConfigService()
+		const serverConfig: ServerConfig | null = await serverConfigService.getConfig()
 
 		if ( serverConfig === null ) {
 			throw ('SERVER CONFIG FOUND')
@@ -264,7 +266,8 @@ Desk Sharing
 		const savedUser: User = await this.repository.update(user)
 		const mailQueueService = new MailQueueService()
 
-		const serverConfig: ServerConfig | null = await ServerConfigService.getConfig()
+		const serverConfigService = new ServerConfigService()
+		const serverConfig: ServerConfig | null = await serverConfigService.getConfig()
 
 		if ( serverConfig === null ) {
 			throw ('NO SERVER CONFIG FOUND')

@@ -2,6 +2,7 @@ import { ServerConfigService } from '../services/server-config'
 import ActiveDirectory from 'activedirectory'
 import { ILdapUser, LdapAuth } from '../auth-providers/ldap'
 import Moment from 'moment'
+import { AuthProvider } from "../db-schemas/server-config/auth-providers"
 
 export const registerServerConfigEndpoints = ( io, socket ): void => {
 	const checkLdapServerUrl = async ( url: string ) => {
@@ -57,7 +58,7 @@ export const registerServerConfigEndpoints = ( io, socket ): void => {
 			const ad = new LdapAuth(options, user, password)
 			response.result = await ad.getLdapUser()
 		} catch ( error ) {
-			console.log('ERROR on "checkTechnicalUserAgainstLdap"', error)
+			console.error('ERROR on "checkTechnicalUserAgainstLdap"', error)
 			response.error = error
 		} finally {
 			socket.emit('CHECK_TECHNICAL_USER_AGAINST_LDAP_RESULT', response)
@@ -66,7 +67,8 @@ export const registerServerConfigEndpoints = ( io, socket ): void => {
 
 	const registerServer = async ( registration ) => {
 		try {
-			const serverConfig = await ServerConfigService.add({
+			const serverConfigService = new ServerConfigService()
+			const serverConfig = await serverConfigService.add({
 				...registration,
 				lastUpdated: Moment.utc(),
 			})
@@ -77,12 +79,25 @@ export const registerServerConfigEndpoints = ( io, socket ): void => {
 			socket.emit('AUTH_PROVIDERS_SUCCESS', serverConfig.authProviders)
 			socket.emit('register_server_success', serverConfig)
 		} catch ( e ) {
-			console.log('ERROR on "register-server"', e)
+			console.error('ERROR on "register-server"', e)
+		}
+	}
+
+	const updateAuthProvider = async ( authProvider: AuthProvider ) => {
+		try {
+			const serverConfigService = new ServerConfigService()
+			const updatedServerConfig = await serverConfigService.updateAuthProviders(authProvider)
+
+			socket.emit('UPDATE_SERVER_CONFIG__SUCCESS', updatedServerConfig)
+		} catch ( e ) {
+			console.error('UPDATE_SERVER_CONFIG__FAILED', e)
+			socket.emit('UPDATE_SERVER_CONFIG__FAILED', e)
 		}
 	}
 
 	socket
 		.on('check-ldap-server-url', checkLdapServerUrl)
 		.on('check-technical-user-against-ldap', checkTechnicalUserAgainstLdap)
+		.on('update-auth-provider', updateAuthProvider)
 		.on('register-server', registerServer)
 }

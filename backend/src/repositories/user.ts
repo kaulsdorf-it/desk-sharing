@@ -2,13 +2,9 @@ import { getUserModel, User, UserStatus } from '../db-schemas/users'
 import moment from 'moment'
 
 export class UserRepository {
-	private model
+	private readonly model = getUserModel()
 
-	constructor() {
-		this.model = getUserModel()
-	}
-
-	async hasAnyUser(): Promise<boolean> {
+	async hasAnyUser(): Promise<any> {
 		return this.model.countDocuments()
 	}
 
@@ -16,17 +12,17 @@ export class UserRepository {
 		return this.model.find()
 	}
 
-	async get( _id: string ): Promise<User> {
+	async get( _id: string ): Promise<User | null> {
 		const query = { _id }
 		return this.model.findOne(query).lean()
 	}
 
-	async getByClientId( clientId: string ): Promise<User> {
+	async getByClientId( clientId: string ): Promise<User | null> {
 		const query = { clientIds: clientId }
 		return this.model.findOne(query).lean()
 	}
 
-	async getUserByAccountName( authProviderId: string, accountName: string ): Promise<User> {
+	async getUserByAccountName( authProviderId: string, accountName: string ): Promise<User | null> {
 		return this.model.findOne({ authProviderId, accountName })
 	}
 
@@ -35,12 +31,12 @@ export class UserRepository {
 		return this.model.findOne(query).lean()
 	}
 
-	async getByNewPasswordRequestToken( token: string ): Promise<User> {
+	async getByNewPasswordRequestToken( token: string ): Promise<User | null> {
 		const query = { 'newPasswordRequest.token': token }
 		return this.model.findOne(query).lean()
 	}
 
-	async getByAccountName( authProviderId: string, accountName: string ): Promise<User> {
+	async getByAccountName( authProviderId: string, accountName: string ): Promise<User | null> {
 		const query = { authProviderId, accountName }
 		return this.model.findOne(query).lean()
 	}
@@ -63,7 +59,7 @@ export class UserRepository {
 		return this.model.findOne({ _id: userId }).lean()
 	}
 
-	async update( user: User ): Promise<User | undefined> {
+	async update( user: User ): Promise<User | null> {
 		try {
 			// @ts-ignore
 			await this.model.updateOne({ _id: user._id }, user)
@@ -71,14 +67,19 @@ export class UserRepository {
 			return this.get(user._id.toString())
 		} catch ( e ) {
 			console.error('ERROR in UserRepository.update()', e)
-			return
+			return null
 		}
 	}
 
-	async delete( userId: string ): Promise<User | undefined> {
+	async delete( userId: string ): Promise<User | null> {
 		const storedUser = await this.get(userId)
-		storedUser.status = UserStatus.INACTIVE
-		return this.update(storedUser)
+
+		if ( storedUser ) {
+			storedUser.status = UserStatus.INACTIVE
+			return this.update(storedUser)
+		}
+
+		return null
 	}
 
 	async countAll(): Promise<number> {
@@ -96,7 +97,7 @@ export class UserRepository {
 		return this.model.updateMany(query, update)
 	}
 
-	async removeUnconfirmedLocalSignUps(): Promise<void> {
+	removeUnconfirmedLocalSignUps() {
 		const query = {
 			status: UserStatus.UNCONFIRMED,
 			createdAt: {

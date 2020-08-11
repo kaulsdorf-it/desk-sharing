@@ -9,8 +9,9 @@ export const registerLocalAuthProviderEndpoints = ( io, socket ): void => {
 	const requestForgottenPasswordMail = async ( mail: string ) => {
 		const userService = new UserService()
 		const mailQueueService = new MailQueueService()
+		const serverConfigService = new ServerConfigService()
 
-		const serverConfig: ServerConfig | null = await ServerConfigService.getConfig()
+		const serverConfig: ServerConfig | null = await serverConfigService.getConfig()
 
 		if ( !serverConfig ) {
 			console.log('NO serverConfig')

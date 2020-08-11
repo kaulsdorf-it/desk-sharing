@@ -21,7 +21,8 @@ export const bindWebSocketToServer = async server => {
 	io = require('socket.io')(server)
 
 	io.sockets.on('connect', async ( socket ) => {
-		const appConfig = await ServerConfigService.getConfig()
+		const serverConfigService = new ServerConfigService()
+		const appConfig = await serverConfigService.getConfig()
 		socket.emit('this_server_has_already_been_registered', !!appConfig)
 		socket.emit('AUTH_PROVIDERS_SUCCESS', appConfig ? appConfig.authProviders : [])
 

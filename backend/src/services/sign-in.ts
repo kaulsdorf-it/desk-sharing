@@ -10,7 +10,8 @@ import moment from "moment"
 
 export class SignInService {
 	static async signIn( providerId: string, credentials: ICredentials ): Promise<User> {
-		const serverConfig = await ServerConfigService.getConfig()
+		const serverConfigService = new ServerConfigService()
+		const serverConfig = await serverConfigService.getConfig()
 
 		if ( !serverConfig ) {
 			throw ('NO SERVER CONFIG FOUND')
