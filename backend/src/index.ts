@@ -21,37 +21,37 @@ app.use(express.urlencoded({ extended: true }))
 const server = http.createServer(app)
 
 const start = async () => {
-	try {
-		console.log('===========================================================')
-		console.log('desc-sharing-backend')
-		console.log('===========================================================')
+  try {
+    console.log('===========================================================')
+    console.log('desc-sharing-backend')
+    console.log('===========================================================')
 
-		const mongodb = new MongoDb(config)
-		await mongodb.connect()
+    const mongodb = new MongoDb(config)
+    await mongodb.connect()
 
-		await populateDemoData()
+    await populateDemoData()
 
-		await bindWebSocketToServer(server)
+    await bindWebSocketToServer(server)
 
-		app.use(detectApiKey)
+    app.use(detectApiKey)
 
-		serveStaticFiles(app)
+    serveStaticFiles(app)
 
-		registerWebSocketEndpoints()
+    registerWebSocketEndpoints()
 
-		await startRestServer(server)
+    await startRestServer(server)
 
-		Jobs.startCronJobs()
+    Jobs.startCronJobs()
 
-		console.log('== SERVER STARTUP SUCCESSFULLY ============================')
-		console.log('')
-	} catch ( err ) {
-		console.log('= ERROR during server startup:                            =')
-		console.log(err)
-		console.log('========= SERVER STARTUP STOPPED ==========================')
-		closeConnection()
-		process.exit(1)
-	}
+    console.log('== SERVER STARTUP SUCCESSFULLY ============================')
+    console.log('')
+  } catch (err) {
+    console.log('= ERROR during server startup:                            =')
+    console.log(err)
+    console.log('========= SERVER STARTUP STOPPED ==========================')
+    closeConnection()
+    process.exit(1)
+  }
 }
 
 // start the app

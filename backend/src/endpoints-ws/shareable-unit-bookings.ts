@@ -21,7 +21,9 @@ export const registerShareableUnitBookingsEndpoints = ( io, socket ): void => {
 
 			if ( storedBooking ) {
 				const shareableUnit = await shareableUnitService.getById(storedBooking.shareableUnitId)
-				io.emit('update_shareable_unit_booking__success', { booking: storedBooking, roomId: shareableUnit.roomId })
+				if ( shareableUnit ) {
+					io.emit('update_shareable_unit_booking__success', { booking: storedBooking, roomId: shareableUnit.roomId })
+				}
 			}
 		} catch ( e ) {
 			socket.emit('add_shareable_unit_booking__failed', e)

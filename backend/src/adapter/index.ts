@@ -1,4 +1,4 @@
 export const Adapters = {
-	general: {
-	}
+  general: {
+  }
 }

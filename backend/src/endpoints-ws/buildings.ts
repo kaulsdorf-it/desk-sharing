@@ -15,7 +15,7 @@ export const registerBuildingEndpoints = ( io, socket ): void => {
 
 	const getById = async ( buildingId: string ): Promise<void> => {
 		try {
-			const item: Building = await buildingService.getById(buildingId)
+			const item: Building | null = await buildingService.getById(buildingId)
 			socket.emit('get_building_by_id__success', item)
 		} catch ( e ) {
 			socket.emit('get_building_by_id__failed', e)
