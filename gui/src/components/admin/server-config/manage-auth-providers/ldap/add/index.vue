@@ -1,5 +1,5 @@
 <template>
-  <ValidationObserver ref="observer" v-slot="{ invalid }">
+  <ValidationObserver ref="observer" tag="form" v-slot="{ invalid }">
     <kit-dialog
       persistent
       scrollable
@@ -7,23 +7,21 @@
       width="1200"
     >
       <template v-slot:activatorBtn="{ open }">
-        <v-chip
+        <v-btn
           @click="open"
-          class="mr-2 mb-2"
+          class="mr-2"
           color="primary"
           label
+          outlined
         >
           <v-icon left>add</v-icon>
           LDAP-Service
-        </v-chip>
+        </v-btn>
       </template>
 
       <template slot="content">
         <v-row>
           <v-col cols="6">
-            <div class="blue-grey lighten-4 pa-3 mt-3">
-              Angezeigter Name des Dienstes
-            </div>
             <v-row class="dense px-2">
               <v-col cols="12">
                 <ValidationProvider :rules="formRules.name" name="Bezeichnung" v-slot="{ errors, validate }" vid="name">
@@ -40,20 +38,20 @@
               </v-col>
             </v-row>
 
-            <div class="blue-grey lighten-4 pa-3 mt-3">
-              URL des LDAP-Dienstes
-              <span style="float: right; top: -4px; position: relative" v-if="ldapUrl">
-                <v-btn
-                  :color="getBtnColor(urlTestResult)"
-                  @click="checkUrl"
-                  class="white"
-                  small
-                >
-                  Prüfen
-                  <v-icon right size="18">{{ getIcon(urlTestResult) }}</v-icon>
-                </v-btn>
-              </span>
-            </div>
+            <v-divider class="mt-2 mb-6"/>
+
+            <span style="float: right; top: -4px; position: relative" v-if="ldapUrl">
+              <v-btn
+                :color="getBtnColor(urlTestResult)"
+                @click="checkUrl"
+                class="white"
+                small
+              >
+                Prüfen
+                <v-icon right size="18">{{ getIcon(urlTestResult) }}</v-icon>
+              </v-btn>
+            </span>
+
             <v-row class="dense px-2">
               <v-col cols="4">
                 <ValidationProvider :rules="formRules.protocol" name="Protokoll" v-slot="{ errors, validate }" vid="protocol">
@@ -70,6 +68,7 @@
                   />
                 </ValidationProvider>
               </v-col>
+
               <v-col cols="5">
                 <ValidationProvider :rules="formRules.host" name="Das Feld" v-slot="{ errors, validate }" vid="host">
                   <v-text-field
@@ -83,6 +82,7 @@
                   />
                 </ValidationProvider>
               </v-col>
+
               <v-col cols="3">
                 <ValidationProvider :rules="formRules.port" name="Port" v-slot="{ errors, validate }" vid="port">
                   <v-text-field
@@ -106,7 +106,8 @@
               </v-col>
             </v-row>
 
-            <div class="blue-grey lighten-4 pa-3 mt-3">Suche</div>
+            <v-divider class="mb-6"/>
+
             <v-row class="dense px-2">
               <v-col cols="6">
                 <ValidationProvider :rules="formRules.baseDN" name="baseDN" v-slot="{ errors, validate }" vid="baseDN">
@@ -136,22 +137,22 @@
               </v-col>
             </v-row>
 
-            <div class="blue-grey lighten-4 pa-3 mt-3">
-              Technischer LDAP User
-              <span style="float: right; top: -4px; position: relative" v-if="config">
-                <v-btn
-                  :color="getBtnColor(technicalUserCheckResult)"
-                  @click="checkTechnicalUserAgainstLdap"
-                  class="white"
-                  small
-                >
-                  Prüfen
-                  <v-icon right size="18">{{ getIcon(technicalUserCheckResult) }}</v-icon>
-                </v-btn>
-              </span>
-            </div>
+            <v-divider class="mb-6"/>
+
+            <span style="float: right; top: -4px; position: relative" v-if="config">
+              <v-btn
+                :color="getBtnColor(technicalUserCheckResult)"
+                @click="checkTechnicalUserAgainstLdap"
+                class="white"
+                small
+              >
+                Prüfen
+                <v-icon right size="18">{{ getIcon(technicalUserCheckResult) }}</v-icon>
+              </v-btn>
+            </span>
+
             <v-row class="dense px-2">
-              <v-col cols="6">
+              <v-col cols="12">
                 <ValidationProvider :rules="formRules.userAccount" name="Benutzername" v-slot="{ errors, validate }" vid="userAccount">
                   <v-text-field
                     :error-messages="errors"
@@ -162,7 +163,8 @@
                   />
                 </ValidationProvider>
               </v-col>
-              <v-col cols="3">
+
+              <v-col cols="6">
                 <ValidationProvider name="Kennwort" rules="required" v-slot="{ errors, validate }" vid="password">
                   <v-text-field
                     :error-messages="errors"
@@ -174,7 +176,7 @@
                   />
                 </ValidationProvider>
               </v-col>
-              <v-col cols="3">
+              <v-col cols="6">
                 <ValidationProvider
                   name="Kennwort bestätigen"
                   rules="required|password:@password"
@@ -270,9 +272,9 @@
       port: 636,
       baseDN: 'DC=bku,DC=db,DC=de',
       userDN: 'cn={0},OU=DB User Account,OU=Users,OU=Manage,OU=Desktop Services',
-      userAccount: 'guido.drahota@deutschebahn.com',
-      password: 'fncsf7sjiks6BJyhsxfP2N8H',
-      confirmPassword: 'fncsf7sjiks6BJyhsxfP2N8H',
+      userAccount: '',
+      password: '',
+      confirmPassword: '',
       secure: null,
       formRules: {
         protocol: {
@@ -280,7 +282,7 @@
         },
         name: {
           required: true,
-          min: 4,
+          min: 3,
         },
         host: {
           required: true,
@@ -307,6 +309,7 @@
       ...mapActions({
         checkLdapServerUrl: 'serverConfig/checkLdapServerUrlAction',
         checkTechnicalUser: 'serverConfig/checkTechnicalUserAction',
+        updateAuthProvider: 'serverConfig/updateAuthProviderAction'
       }),
       getIcon(data) {
         if (!data) {
@@ -338,6 +341,14 @@
 
         return 'warning'
       },
+      checkUrl() {
+        if (this.ldapUrl) {
+          this.checkLdapServerUrl(this.ldapUrl)
+        }
+      },
+      checkTechnicalUserAgainstLdap() {
+        this.checkTechnicalUser(this.config)
+      },
       submit(close) {
         const payload = {
           type: 'ldap',
@@ -353,17 +364,9 @@
           }
         }
 
-        this.$emit('add', payload)
+        this.updateAuthProvider(payload)
         close()
       },
-      checkUrl() {
-        if (this.ldapUrl) {
-          this.checkLdapServerUrl(this.ldapUrl)
-        }
-      },
-      checkTechnicalUserAgainstLdap() {
-        this.checkTechnicalUser(this.config)
-      }
     },
 
     watch: {

@@ -37,7 +37,8 @@
       menuItems() {
         const adminMenuItems = getMenuItemsForAdmin(this.usersNotYetCleared)
         return [
-          adminMenuItems.menuItemManageMailServer
+          adminMenuItems.menuItemManageMailServer,
+          adminMenuItems.menuItemManageServerConfig,
         ]
       },
       showTopLevelIndicator() {

@@ -10,6 +10,7 @@ import { RoomService } from '../services/rooms'
 import { ShareableUnitService } from '../services/shareable-units'
 import { ShareableUnitBooking } from "../db-schemas/shareable-unit-bookings"
 import { ShareableUnitBookingService } from '../services/shareable-unit-bookings'
+import { ServerConfigService } from "../services/server-config"
 
 export const registerClientEndpoints = ( io, socket ): void => {
 	const userService = new UserService()
@@ -18,6 +19,7 @@ export const registerClientEndpoints = ( io, socket ): void => {
 	const roomService = new RoomService()
 	const shareableUnitService = new ShareableUnitService()
 	const shareableUnitBookingService = new ShareableUnitBookingService()
+	const serverConfigService = new ServerConfigService()
 
 	const sendDataToUser = async ( socket, user ): Promise<void> => {
 		// @ts-ignore
@@ -39,6 +41,9 @@ export const registerClientEndpoints = ( io, socket ): void => {
 
 		const mailServers = await mailServerService.getAll()
 		socket.emit('get_all_mail_servers_success', mailServers)
+
+		const serverConfig = await serverConfigService.getConfig()
+		socket.emit('get_server_config__success', serverConfig)
 
 		const shareableUnits = await shareableUnitService.getAll()
 		socket.emit('get_all_shareable_units__success', shareableUnits)

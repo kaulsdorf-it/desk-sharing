@@ -1,17 +1,8 @@
 import { socket } from '../plugins/socket-io'
-import { EventBus } from '../event-bus'
-
-const authorityTypes = [
-  { text: 'Technische Betriebsführung', value: 'technical management', icon: 'mdi-lan' },
-  { text: 'Fachliche Betriebsführung', value: 'functional management', icon: 'mdi-account' },
-  { text: 'Rechtlich verantwortlich', value: 'legally responsible', icon: 'mdi-format-section' },
-]
 
 const state = {
   config: {},
-  serverIsRegistered: null,
   checkHostNameResult: null,
-  authorityTypes,
   ldapServerUrls: [],
   technicalUsers: [],
 }
@@ -19,29 +10,6 @@ const state = {
 // actions
 const checkRegistryServerUrlAction = (context, url) => {
   socket.send('check-registry-server-url', url)
-}
-
-const registerServerAction = context => {
-  const config = context.state.config
-
-  const payload = {
-    registryServerUrl: config.registryServerUrl,
-    hostName: config.hostName,
-    serverDescription: {
-      companyName: config.companyName,
-      serviceName: config.serviceName,
-      organizationalUnitName: config.organizationalUnitName,
-      usageType: config.usageType,
-      billingData: {
-        costCenter: config.costCenter,
-        locationId: config.locationId,
-      },
-      authorities: config.authorities,
-    },
-    authProviders: config.authProviders,
-  }
-
-  socket.send('register-server', payload)
 }
 
 const checkLdapServerUrlAction = (context, url) => {
@@ -70,11 +38,15 @@ const checkTechnicalUserAction = (context, { url, baseDN, userDN, user, password
   socket.send('check-technical-user-against-ldap', { user, password, url, baseDN, userDN })
 }
 
+const updateAuthProviderAction = (context, authProvider) => {
+  socket.send('update-auth-provider', authProvider)
+}
+
 const actions = {
   checkLdapServerUrlAction,
   checkTechnicalUserAction,
   checkRegistryServerUrlAction,
-  registerServerAction,
+  updateAuthProviderAction,
 }
 
 // mutations
@@ -105,51 +77,15 @@ const resetCheckRegistryServerUrlMutation = state => {
   state.checkHostNameResult = null
 }
 
-const SOCKET_THIS_SERVER_HAS_ALREADY_BEEN_REGISTERED = (state, response) => {
-  state.serverIsRegistered = response[0]
-
-  if (state.serverIsRegistered === false) {
-    EventBus.$emit('routeTo', { to: { name: 'register-this-server' } })
-  }
-}
-
-const SOCKET_CHECK_REGISTRY_SERVER_URL_SUCCESS = state => {
-  state.checkHostNameResult = true
-}
-
-const SOCKET_CHECK_REGISTRY_SERVER_URL_FAILED = (state, response) => {
-  state.checkHostNameResult = response[0]
-}
-
-const SOCKET_SERVER_CONFIG_SUCCESS = (state, response) => {
+const SOCKET_GET_SERVER_CONFIG__SUCCESS = (state, response) => {
   state.config = response[0]
-  state.serverIsRegistered = true
-}
-
-const SOCKET_REGISTER_SERVER_SUCCESS = (state, response) => {
-  state.config = response[0]
-  state.serverIsRegistered = true
-
-  EventBus.$emit('routeTo', { to: { name: 'forms' } })
 }
 
 const SOCKET_SERVER_CONFIG_EMPTY = state => {
   const hostName = window.location.protocol + '//' + window.location.hostname + ':' + window.location.port
 
   state.config = {
-    usageType: null,
-    serviceName: 'Lokaler Testserver',
     hostName,
-    registryServerUrl: 'http://registry-server:3999/api',
-    companyName: 'Kaulsdorf IT Solutions',
-    organizationalUnitName: 'R & D',
-    authorities: state.authorityTypes.map(authorityType => ({
-      description: 'description example ',
-      contactData: 'contactData example ',
-      authorityType: authorityType.value,
-    })),
-    costCenter: null,
-    locationId: null,
     authProviders: [],
   }
 }
@@ -158,27 +94,15 @@ const setConfigValueMutation = (state, { name, value }) => {
   state.config[name] = value
 }
 
-const setAuthorityMutation = (state, authority) => {
-  state.config = {
-    ...state.config,
-    authorities: state.config.authorities.map(item => item.authorityType === authority.authorityType ? authority : item)
-  }
-}
-
 const mutations = {
   newCheckLdapServerUrlMutation,
   newCheckTechnicalUserMutation,
   resetCheckRegistryServerUrlMutation,
   setConfigValueMutation,
-  setAuthorityMutation,
   SOCKET_CHECK_LDAP_SERVER_URL_RESULT,
   SOCKET_CHECK_TECHNICAL_USER_AGAINST_LDAP_RESULT,
-  SOCKET_CHECK_REGISTRY_SERVER_URL_FAILED,
-  SOCKET_CHECK_REGISTRY_SERVER_URL_SUCCESS,
-  SOCKET_REGISTER_SERVER_SUCCESS,
-  SOCKET_SERVER_CONFIG_SUCCESS,
+  SOCKET_GET_SERVER_CONFIG__SUCCESS,
   SOCKET_SERVER_CONFIG_EMPTY,
-  SOCKET_THIS_SERVER_HAS_ALREADY_BEEN_REGISTERED,
 }
 
 // getters
@@ -204,9 +128,6 @@ const getAuthProviders =
 const getters = {
   getConfig: state => state.config,
   getAuthProviders,
-  serverIsRegistered: state => state.serverIsRegistered,
-  checkHostNameResult: state => state.checkHostNameResult,
-  getAuthorityTypes: state => JSON.parse(JSON.stringify(state.authorityTypes)),
   getLdapServerUrlCheckResultByUrl: state => url => state.ldapServerUrls.find(i => i.url === url.trim()),
   getTechnicalUserCheckResultByConfig,
 }

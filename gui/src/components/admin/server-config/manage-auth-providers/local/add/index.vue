@@ -7,15 +7,16 @@
       width="800"
     >
       <template v-slot:activatorBtn="{ open }">
-        <v-chip
+        <v-btn
           @click="open"
-          class="mr-2 mb-2"
+          class="mr-2"
           color="primary"
           label
+          outlined
         >
           <v-icon left>add</v-icon>
           Lokale Benutzerauthentifizierung
-        </v-chip>
+        </v-btn>
       </template>
 
       <template slot="content">

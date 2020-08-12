@@ -1,13 +1,20 @@
 <component name="ProjectDictionaryState">
   <dictionary name="guidodrahota">
     <words>
+      <w>absenden</w>
       <w>aller</w>
+      <w>angezeigt</w>
+      <w>angezeigter</w>
+      <w>anmeldedienstes</w>
       <w>anmelden</w>
       <w>antrag</w>
       <w>auszuführen</w>
+      <w>authentifizierungsservice</w>
       <w>beabsichtigen</w>
       <w>beantragt</w>
+      <w>benutzerauthentifizierung</w>
       <w>benutzerkonto</w>
+      <w>benutzername</w>
       <w>benutzerverwaltung</w>
       <w>benötigen</w>
       <w>berechtigt</w>
@@ -20,6 +27,8 @@
       <w>buchen</w>
       <w>buchung</w>
       <w>buchungen</w>
+      <w>dienst</w>
+      <w>dienstes</w>
       <w>einen</w>
       <w>einfach</w>
       <w>einheit</w>
@@ -37,18 +46,26 @@
       <w>inkl</w>
       <w>inventar</w>
       <w>kennwort</w>
+      <w>konfiguriert</w>
       <w>konto</w>
+      <w>ldaps</w>
       <w>lokale</w>
       <w>mitglied</w>
       <w>möchten</w>
       <w>neues</w>
+      <w>protokoll</w>
       <w>raum</w>
+      <w>registrierung</w>
       <w>reserviert</w>
       <w>reservierung</w>
       <w>räume</w>
+      <w>saml</w>
+      <w>serverkonfiguration</w>
       <w>siofu</w>
       <w>sowie</w>
       <w>stornieren</w>
+      <w>technischen</w>
+      <w>technischer</w>
       <w>teil</w>
       <w>testuser</w>
       <w>tisch</w>

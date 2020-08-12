@@ -88,7 +88,7 @@ export const registerServerConfigEndpoints = ( io, socket ): void => {
 			const serverConfigService = new ServerConfigService()
 			const updatedServerConfig = await serverConfigService.updateAuthProviders(authProvider)
 
-			socket.emit('UPDATE_SERVER_CONFIG__SUCCESS', updatedServerConfig)
+			socket.emit('GET_SERVER_CONFIG__SUCCESS', updatedServerConfig)
 		} catch ( e ) {
 			console.error('UPDATE_SERVER_CONFIG__FAILED', e)
 			socket.emit('UPDATE_SERVER_CONFIG__FAILED', e)

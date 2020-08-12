@@ -1,34 +1,8 @@
 <template>
-  <ValidationObserver v-slot="{ invalid }">
-    <v-stepper-content :step="step" :test="setFormValidity(!invalid)" style="height: calc(100vh - 397px); overflow-y: auto;">
-      <div class="title">Authentifizierungsservice(s) konfigurieren</div>
-      <div class="subtitle-2 pb-4">Mindestens ein (1) Authentifizierungsservice wird benötigt</div>
-      <div class="pb-4">
-        <add-ldap @add="addProvider"/>
-        <add-local @add="addProvider" v-if="!authProviders.find(ap => ap.type === 'local')"/>
-      </div>
-      <v-row>
-        <v-col :key="idx" cols="6" v-for="(authProvider, idx) of authProviders">
-          <component :authProvider="authProvider" :is="getProvider(authProvider.type)"/>
-        </v-col>
-      </v-row>
-    </v-stepper-content>
-
-    <ValidationProvider rules="min_value:1" v-slot="{ errors, validate }">
-      <v-text-field
-        :error-messages="errors"
-        :value="authProviders.length"
-        @keyup="validate"
-        type="number"
-        v-if="authProviders"
-        v-show="false"
-      />
-    </ValidationProvider>
-
-  </ValidationObserver>
 </template>
 
 <script>
+  import { mapGetters } from 'vuex'
   import { mixin } from '../mixin'
   import Ldap from './ldap'
   import AddLdap from './ldap/add'
@@ -37,12 +11,15 @@
 
   import Local from './local'
   import AddLocal from './local/add'
-  import { stepMixin } from '../step-mixin'
 
   export default {
     components: {
       AddLdap,
       AddLocal,
+    },
+
+    computed: {
+      ...mapGetters({}),
     },
 
     created() {
@@ -76,7 +53,7 @@
       },
     },
 
-    mixins: [mixin, stepMixin],
+    mixins: [mixin],
 
     watch: {
       config(config) {

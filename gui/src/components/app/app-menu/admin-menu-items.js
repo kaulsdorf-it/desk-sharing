@@ -27,4 +27,11 @@ export const getMenuItemsForAdmin = usersNotYetCleared => ({
     icon: 'mdi-view-dashboard',
     label: 'Buchbare Einheiten verwalten',
   },
+
+  menuItemManageServerConfig: {
+    to: { name: 'manage-server-config' },
+    color: 'default',
+    icon: 'mdi-view-dashboard',
+    label: 'Serverkonfiguration',
+  }
 })

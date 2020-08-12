@@ -5,6 +5,7 @@ import UsersManageUser from '../components/admin/users/manage-user'
 import ManageMailServer from '../components/admin/mail-server'
 import ManageSingleMailServer from '../components/admin/mail-server/manage-single-mail-server'
 import ManageShareableUnits from '../components/admin/shareable-units'
+import ManageServerConfig from '../components/admin/server-config'
 
 export default [
   {
@@ -40,6 +41,15 @@ export default [
             title: 'Benutzerverwaltung'
           },
         }]
+      },
+      {
+        name: 'manage-server-config',
+        path: 'manage-server-config',
+        component: ManageServerConfig,
+        meta: {
+          title: 'Serverkonfiguration',
+          requiredRole: ['admin'],
+        },
       },
       {
         name: 'manage-mail-servers',

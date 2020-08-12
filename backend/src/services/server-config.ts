@@ -17,7 +17,7 @@ export class ServerConfigService {
 	}
 
 	async updateAuthProviders( authProvider: AuthProvider ): Promise<ServerConfig | null> {
-		if ( !this.isKnownAuthProvider(authProvider) ) {
+		if ( !this.isKnownAuthProvider(authProvider.provider) ) {
 			throw Error('ARGUMENT IS NOT A VALID AUTH PROVIDER')
 		}
 
@@ -26,12 +26,12 @@ export class ServerConfigService {
 		return this.getConfig()
 	}
 
-	private isKnownAuthProvider( authProvider: AuthProvider ): Boolean {
-		const ldapConfigAttrs = ['url', 'port', 'userDN', 'baseDN', 'credentials']
+	private isKnownAuthProvider( authProviderConfig: any ): Boolean {
+		const ldapConfigAttrs = ['name', 'url', 'userDN', 'baseDN', 'credentials']
 		const localConfigAttrs = ['name', 'url', 'passwordExpiresInDays', 'anonymizeAccountOnInactivityAfterDays']
 
-		const isLdapConfig = ldapConfigAttrs.every(attr => authProvider.hasOwnProperty(attr))
-		const isLocalConfig = localConfigAttrs.every(attr => authProvider.hasOwnProperty(attr))
+		const isLdapConfig = ldapConfigAttrs.every(attr => authProviderConfig.hasOwnProperty(attr))
+		const isLocalConfig = localConfigAttrs.every(attr => authProviderConfig.hasOwnProperty(attr))
 
 		return isLdapConfig || isLocalConfig
 	}
