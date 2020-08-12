@@ -97,7 +97,13 @@ const SOCKET_CANCEL_SHAREABLE_UNIT_BOOKING__SUCCESS = (state, response) => {
 const SOCKET_GET_MY_SHAREABLE_UNIT_BOOKINGS__SUCCESS = (state, response) => {
   response[0].forEach(b => {
     if (state.myBookings[b.date]) {
-      state.myBookings[b.date].push(b)
+      const idx = state.myBookings[b.date].findIndex(i => i._id === b._id)
+
+      if (idx === -1) {
+        state.myBookings[b.date].push(b)
+      } else {
+        Vue.$set(state.myBookings[b.date], idx, b)
+      }
     } else {
       Vue.set(state.myBookings, b.date, [b])
     }
