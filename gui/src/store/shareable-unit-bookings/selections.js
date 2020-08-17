@@ -1,5 +1,7 @@
+import moment from 'moment'
+
 const state = {
-  date: null,
+  date: moment().format('YYYY-MM-DD'),
   buildingId: null,
   roomId: null,
   timeFrom: '08:00',

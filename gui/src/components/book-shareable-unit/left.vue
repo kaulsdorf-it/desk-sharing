@@ -1,8 +1,8 @@
 <template>
-  <v-col class="mt-0" cols="5">
+  <v-col class="mt-0" md="12" lg="6">
     <v-card tile>
       <v-card-text>
-        <div style="height: calc(100vh - 182px); overflow-y: auto;">
+        <div style="height: calc(100vh - 180px); overflow-y: auto;">
           <select-date/>
         </div>
       </v-card-text>

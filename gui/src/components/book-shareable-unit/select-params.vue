@@ -1,6 +1,6 @@
 <template>
   <v-row>
-    <v-col class="mt-1 mb-2 pt-0" cols="2">
+    <v-col class="mt-1 mb-2 pt-0" md="2" sm="6">
       <v-text-field
         clearable
         filled
@@ -11,7 +11,7 @@
       />
     </v-col>
 
-    <v-col class="mt-1 mb-2 pt-0" cols="2">
+    <v-col class="mt-1 mb-2 pt-0" md="2" sm="6">
       <v-text-field
         clearable
         filled
@@ -22,7 +22,7 @@
       />
     </v-col>
 
-    <v-col class="mt-1 mb-2 pt-0" cols="4">
+    <v-col class="mt-1 mb-2 pt-0" md="4" sm="6">
       <v-select
         :items="buildings"
         clearable
@@ -35,7 +35,7 @@
       />
     </v-col>
 
-    <v-col class="mt-1 mb-2 pt-0" cols="4">
+    <v-col class="mt-1 mb-2 pt-0" md="4" sm="6">
       <v-select
         :disabled="!getSelectedBuildingId"
         :items="rooms"

@@ -1,5 +1,5 @@
 <template>
-  <v-col class="mt-0" cols="7">
+  <v-col class="mt-0" lg="6" md="12">
     <v-card tile>
       <v-card-text>
         <select-params/>
