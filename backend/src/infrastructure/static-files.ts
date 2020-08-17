@@ -40,7 +40,7 @@ export const serveStaticFiles = ( app: Object ) => {
 
 	// @ts-ignore
 	app.use(( req: any, res: any, next: any ): void => {
-		const startPattern = ['/form', '/fill-form', '/manage', '/admin', '/about']
+		const startPattern = ['/book-shareable-unit', '/admin', '/about']
 
 		startPattern.forEach(pattern => {
 			if ( req.url.indexOf(pattern) !== -1 ) {
