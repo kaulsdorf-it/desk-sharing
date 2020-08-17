@@ -1,5 +1,5 @@
 <template>
-  <div class="pa-1">
+  <div @click="test" class="pa-1">
     <div>{{ building.name }}</div>
     <div>R. {{ room.name }}</div>
     <div>{{ shareableUnit.name }}</div>
@@ -7,7 +7,7 @@
 </template>
 
 <script>
-  import { mapGetters } from 'vuex'
+  import { mapGetters, mapMutations } from 'vuex'
 
   export default {
     computed: {
@@ -24,6 +24,18 @@
       },
       building() {
         return this.getBuildingById(this.room.buildingId)
+      }
+    },
+
+    methods: {
+      ...mapMutations({
+        setBuildingId: 'shareableUnitBookings/selections/selectBuildingIdMutation',
+        setRoomId: 'shareableUnitBookings/selections/selectRoomIdMutation',
+      }),
+      test() {
+        console.log('select', this.room.buildingId, this.shareableUnit.roomId)
+        this.setBuildingId(this.room.buildingId)
+        this.setRoomId(this.shareableUnit.roomId)
       }
     },
 

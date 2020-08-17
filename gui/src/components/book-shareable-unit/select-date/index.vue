@@ -18,6 +18,7 @@
       :now="selectedDate"
       :short-weekdays="false"
       :weekdays="[ 1, 2, 3, 4, 5, 6, 0]"
+      @click:day="test"
       color="primary"
       interval-height="40"
       locale="de-de"
@@ -28,7 +29,7 @@
       v-model="selectedDate"
     >
       <template v-slot:event="{ eventParsed }">
-        <shareable-unit :shareable-unit-id="eventParsed.input.name"/>
+        <shareable-unit :shareable-unit-id="eventParsed.input.shareableUnitId"/>
       </template>
     </v-calendar>
   </div>
@@ -50,7 +51,8 @@
       }),
       events() {
         return Object.values(this.myBookings).flat(1).map(i => ({
-          name: i.shareableUnitId,
+          ...i,
+          shareableUnitId: i.shareableUnitId,
           start: `${i.date} ${i.timeFrom}`,
           end: `${i.date} ${i.timeTill}`,
         }))
@@ -74,12 +76,13 @@
       },
       nextWeek() {
         this.selectDate(this.$moment(this.selectedDate).add(1, 'weeks').format('YYYY-MM-DD'))
-        //this.$refs.calendar.next()
       },
       previousWeek() {
         this.selectDate(this.$moment(this.selectedDate).add(-1, 'weeks').format('YYYY-MM-DD'))
-        //this.$refs.calendar.prev()
       },
+      test(data) {
+        console.log(data)
+      }
     },
   }
 </script>
